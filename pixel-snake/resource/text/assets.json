@@ -1,0 +1,23 @@
+{
+    "imageFiles":[
+        "/image/sprites.png"
+    ],
+    "spriteDefs":[
+        [  0,  0,  0, 32, 32],
+        [  0, 32,  0, 64, 32],
+        [  0,  0, 32, 32, 64],
+        [  0, 32, 32, 64, 64]
+    ],
+    "clipFiles":[],
+    "midiFiles":[],
+    "fontFiles":[
+        "/font/SansSerif/BOLD/64/0xFF0000/font.txt"
+    ],
+    "colorDefs":[
+        "0x000000"
+    ],
+    "strings":[
+        "SNAKE!",
+        "GAME OVER"
+    ]
+}

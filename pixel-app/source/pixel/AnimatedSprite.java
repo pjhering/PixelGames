@@ -1,0 +1,74 @@
+package pixel;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import static java.util.Objects.requireNonNull;
+
+public class AnimatedSprite implements Sprite
+{
+    private final BufferedImage image;
+    private final int length;
+    private final int[] sx1;
+    private final int[] sy1;
+    private final int[] sx2;
+    private final int[] sy2;
+    private final int width;
+    private final int height;
+    private final long millisPerFrame;
+    private long startTime;
+
+    public AnimatedSprite (BufferedImage image, int x, int y, int width, int height, int rows, int cols, long msPerFrame)
+    {
+        this.image = requireNonNull (image);
+        this.millisPerFrame = msPerFrame;
+        this.length = rows * cols;
+        this.sx1 = new int[length];
+        this.sy1 = new int[length];
+        this.sx2 = new int[length];
+        this.sy2 = new int[length];
+
+        this.width = width / cols;
+        this.height = height / rows;
+        int i = 0;
+
+        for (int r = 0; r < rows; r++)
+        {
+            int yy1 = r * this.height;
+            int yy2 = yy1 + this.height;
+
+            for (int c = 0; c < cols; c++)
+            {
+                sy1[i] = yy1;
+                sy2[i] = yy2;
+                sx1[i] = c * this.width;
+                sx2[i] = sx1[i] + this.width;
+                i += 1;
+            }
+        }
+
+        startTime = System.currentTimeMillis ();
+    }
+
+    public int getWidth ()
+    {
+        return width;
+    }
+
+    public int getHeight ()
+    {
+        return this.height;
+    }
+
+    public void draw (Graphics g, int dx1, int dy1, int dx2, int dy2)
+    {
+        long now = System.currentTimeMillis ();
+        int i = (int) ((now - startTime) / millisPerFrame) % length;
+
+        g.drawImage (image, dx1, dy1, dx2, dy2, sx1[i], sy1[i], sx2[i], sy2[i], null);
+    }
+
+    public void reset ()
+    {
+        startTime = System.currentTimeMillis ();
+    }
+}

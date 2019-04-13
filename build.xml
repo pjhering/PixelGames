@@ -1,0 +1,124 @@
+<project name="PixelGames"
+         basedir="."
+         default="all">
+
+    <property name="dist" value="${basedir}/dist"/>
+
+    <property name="app-library" value="${basedir}/pixel-app/library"/>
+    <property name="app-source" value="${basedir}/pixel-app/source"/>
+    <property name="app-build" value="${basedir}/pixel-app/build"/>
+    <property name="app-jar" value="${dist}/pixel-app.jar"/>
+
+    <property name="ces-source" value="${basedir}/pixel-ces/source"/>
+    <property name="ces-build" value="${basedir}/pixel-ces/build"/>
+    <property name="ces-jar" value="${dist}/pixel-ces.jar"/>
+
+    <property name="breakout-library" value="${basedir}/pixel-breakout/library"/>
+    <property name="breakout-source" value="${basedir}/pixel-breakout/source"/>
+    <property name="breakout-resource" value="${basedir}/pixel-breakout/resource"/>
+    <property name="breakout-build" value="${basedir}/pixel-breakout/build"/>
+    <property name="breakout-main" value="breakout.Main"/>
+    <property name="breakout-jar" value="${dist}/breakout.jar"/>
+
+    <property name="snake-library" value="${basedir}/pixel-snake/library"/>
+    <property name="snake-source" value="${basedir}/pixel-snake/source"/>
+    <property name="snake-resource" value="${basedir}/pixel-snake/resource"/>
+    <property name="snake-build" value="${basedir}/pixel-snake/build"/>
+    <property name="snake-main" value="snake.Main"/>
+    <property name="snake-jar" value="${dist}/snake.jar"/>
+
+    <target name="clean">
+        <delete dir="${app-build}"/>
+        <delete dir="${ces-build}"/>
+        <delete dir="${breakout-build}"/>
+        <delete dir="${snake-build}"/>
+        <delete dir="${dist}"/>
+    </target>
+
+    <target name="app-prepare">
+        <mkdir dir="${dist}"/>
+        <mkdir dir="${app-build}"/>
+    </target>
+
+    <target name="app-compile" depends="app-prepare">
+        <javac srcdir="${app-source}" destdir="${app-build}" includeantruntime="false">
+            <classpath>
+                <fileset dir="${app-library}" includes="**/*.jar"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="app-package" depends="app-compile">
+        <jar destfile="${app-jar}">
+            <fileset dir="${app-build}"/>
+            <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
+        </jar>
+    </target>
+
+    <target name="ces-prepare">
+        <mkdir dir="${ces-build}"/>
+    </target>
+
+    <target name="ces-compile" depends="ces-prepare, app-compile">
+        <javac srcdir="${ces-source}" destdir="${ces-build}" includeantruntime="false">
+        </javac>
+    </target>
+
+    <target name="ces-package" depends="ces-compile">
+        <jar destfile="${ces-jar}">
+            <fileset dir="${ces-build}"/>
+        </jar>
+    </target>
+
+    <target name="breakout-prepare">
+        <mkdir dir="${breakout-build}"/>
+    </target>
+
+    <target name="breakout-compile" depends="breakout-prepare, ces-compile">
+        <javac srcdir="${breakout-source}" destdir="${breakout-build}" includeantruntime="false">
+            <classpath>
+                <pathelement path="${app-build}"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="breakout-package" depends="breakout-compile">
+        <jar destfile="${breakout-jar}">
+            <fileset dir="${app-build}"/>
+            <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
+            <fileset dir="${breakout-build}"/>
+            <fileset dir="${breakout-resource}"/>
+            <manifest>
+                <attribute name="Main-Class" value="${breakout-main}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="snake-prepare">
+        <mkdir dir="${snake-build}"/>
+    </target>
+
+    <target name="snake-compile" depends="snake-prepare, ces-compile">
+        <javac srcdir="${snake-source}" destdir="${snake-build}" includeantruntime="false">
+            <classpath>
+                <pathelement path="${app-build}"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="snake-package" depends="snake-compile">
+        <jar destfile="${snake-jar}">
+            <fileset dir="${app-build}"/>
+            <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
+            <fileset dir="${snake-build}"/>
+            <fileset dir="${snake-resource}"/>
+            <manifest>
+                <attribute name="Main-Class" value="${snake-main}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="all" depends="app-package, ces-package, breakout-package, snake-package">
+    </target>
+
+</project>
