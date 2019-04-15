@@ -52,11 +52,11 @@ public class PlayScene extends Scene
         }
         else
         {
-            updateGame (elapsedMillis);
+            updateGame (mgr, elapsedMillis);
         }
     }
 
-    private void updateGame (long elapsedMillis)
+    private void updateGame (SceneManager mgr, long elapsedMillis)
     {
         elapsed += elapsedMillis;
 
@@ -94,6 +94,15 @@ public class PlayScene extends Scene
                 a.getSound (0).play ();
                 resetHeart ();
                 addBody = true;
+            }
+
+            for (Body b : bodyList)
+            {
+                if (head.hits (b))
+                {
+                    a.getSound (1).play ();
+                    mgr.replace (new AfterScene (a, width, height));
+                }
             }
         }
     }
@@ -175,10 +184,6 @@ public class PlayScene extends Scene
     {
         switch (e.getKeyCode ())
         {
-            case KeyEvent.VK_Q:
-                gameOver = true;
-                break;
-
             case KeyEvent.VK_UP:
                 if (head.direction != Head.DOWN)
                 {
