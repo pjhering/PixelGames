@@ -34,8 +34,8 @@ public class Entity
     public boolean hits (Entity that)
     {
         return this.x < that.x + that.width
+            && this.x + this.width > that.x
             && this.y < that.y + that.height
-            && that.x < this.x + this.width
-            && that.y < this.x + this.height;
+            && this.y + this.height > that.y;
     }
 }
