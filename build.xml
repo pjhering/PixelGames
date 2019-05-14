@@ -27,11 +27,19 @@
     <property name="snake-main" value="snake.Main"/>
     <property name="snake-jar" value="${dist}/snake.jar"/>
 
+    <property name="dragontale-library" value="${basedir}/pixel-dragontale/library"/>
+    <property name="dragontale-source" value="${basedir}/pixel-dragontale/source"/>
+    <property name="dragontale-resource" value="${basedir}/pixel-dragontale/resource"/>
+    <property name="dragontale-build" value="${basedir}/pixel-dragontale/build"/>
+    <property name="dragontale-main" value="dragontale.Main"/>
+    <property name="dragontale-jar" value="${dist}/dragontale.jar"/>
+
     <target name="clean">
         <delete dir="${app-build}"/>
         <delete dir="${ces-build}"/>
         <delete dir="${breakout-build}"/>
         <delete dir="${snake-build}"/>
+        <delete dir="${dragontale-build}"/>
         <delete dir="${dist}"/>
     </target>
 
@@ -118,7 +126,31 @@
         </jar>
     </target>
 
-    <target name="all" depends="app-package, ces-package, breakout-package, snake-package">
+    <target name="dragontale-prepare">
+        <mkdir dir="${dragontale-build}"/>
+    </target>
+
+    <target name="dragontale-compile" depends="dragontale-prepare, ces-compile">
+        <javac srcdir="${dragontale-source}" destdir="${dragontale-build}" includeantruntime="false">
+            <classpath>
+                <pathelement path="${app-build}"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="dragontale-package" depends="dragontale-compile">
+        <jar destfile="${dragontale-jar}">
+            <fileset dir="${app-build}"/>
+            <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
+            <fileset dir="${dragontale-build}"/>
+            <fileset dir="${dragontale-resource}"/>
+            <manifest>
+                <attribute name="Main-Class" value="${dragontale-main}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="all" depends="app-package, ces-package, breakout-package, snake-package, dragontale-package">
     </target>
 
 </project>

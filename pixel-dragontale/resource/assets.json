@@ -1,0 +1,25 @@
+{
+    "imageFiles":[
+        "/Backgrounds/grassbg1.gif",
+        "/Backgrounds/menubg.gif",
+        "/HUD/hud.gif",
+        "/Sprites/Enemies/arachnik.gif",
+        "/Sprites/Enemies/explosion.gif",
+        "/Sprites/Enemies/slugger.gif",
+        "/Sprites/Player/fireball.gif",
+        "/Sprites/Player/playersprites.gif",
+        "/Tilesets/grasstileset.gif"
+    ],
+    "spriteDefs":[
+    ],
+    "clipFiles":[
+    ],
+    "midiFiles":[
+    ],
+    "fontFiles":[
+    ],
+    "colorDefs":[
+    ],
+    "strings":[
+    ]
+}
