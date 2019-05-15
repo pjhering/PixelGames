@@ -27,6 +27,12 @@ public class MenuScene extends Scene
     @Override
     public void render (Graphics g)
     {
+        a.getFont (0).draw (g, "Hello", 100,  80);
+        a.getFont (1).draw (g, "Hello", 100, 160);
+        a.getFont (2).draw (g, "Hello", 100, 240);
+        a.getFont (3).draw (g, "Hello", 100, 320);
+        a.getFont (4).draw (g, "Hello", 100, 400);
+        a.getFont (5).draw (g, "Hello", 100, 480);
     }
 
     @Override

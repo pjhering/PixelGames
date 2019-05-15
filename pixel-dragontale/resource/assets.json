@@ -17,9 +17,16 @@
     "midiFiles":[
     ],
     "fontFiles":[
+        "/font/Monospaced/BOLD/32/0x000000/font.txt",
+        "/font/Monospaced/BOLD/32/0xFF0000/font.txt",
+        "/font/Monospaced/BOLD/48/0x000000/font.txt",
+        "/font/Monospaced/BOLD/48/0xFF0000/font.txt",
+        "/font/Monospaced/BOLD/64/0x000000/font.txt",
+        "/font/Monospaced/BOLD/64/0xFF0000/font.txt"
     ],
     "colorDefs":[
     ],
     "strings":[
+        "/Maps/level1-1.map"
     ]
 }
