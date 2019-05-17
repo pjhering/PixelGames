@@ -26,8 +26,8 @@ public class TileMap
     public TileMap (int tileSize)
     {
         this.tileSize = tileSize;
-        numRowsToDraw = 0;
-        numColsToDraw = 0;
+        numRowsToDraw = 8;
+        numColsToDraw = 11;
         tween = 0.07;
     }
 
