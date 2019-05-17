@@ -7,22 +7,25 @@ import pixel.Assets;
 import pixel.Scene;
 import pixel.SceneManager;
 
-public class Level1Scene extends Scene
+public class CreditsScene extends Scene
 {
     private final Assets a;
     private final int width;
     private final int height;
-    private TileMap tileMap;
+    private final String[] credits = {
+        "This whole thing was made",
+        "by Pete Hering using his",
+        "excellent PixelApp game",
+        "framework, but...",
+        "He used ForeignGuyMike's videos",
+        "and assets for much of it."
+    };
 
-    public Level1Scene (Assets a, int width, int height)
+    public CreditsScene (Assets a, int width, int height)
     {
         this.a = a;
         this.width = width;
         this.height = height;
-        this.tileMap = new TileMap (60);
-        this.tileMap.loadTiles (a);
-        this.tileMap.loadMap (a);
-        this.tileMap.setPosition (0, 0);
     }
 
     @Override
@@ -33,10 +36,13 @@ public class Level1Scene extends Scene
     @Override
     public void render (Graphics g)
     {
-        g.setColor (Color.WHITE);
+        g.setColor (Color.BLACK);
         g.fillRect (0, 0, width, height);
 
-        tileMap.draw (g);
+        for (int i = 0; i < credits.length; i++)
+        {
+            a.getFont (1).draw (g, credits[i], 20, 50 + (i * 32));
+        }
     }
 
     @Override
