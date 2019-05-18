@@ -7,22 +7,23 @@ import pixel.Assets;
 import pixel.Scene;
 import pixel.SceneManager;
 
-public class CreditsScene extends Scene
+public class HelpScene extends Scene
 {
     private final Assets a;
     private final int width;
     private final int height;
-    private final String[] credits = {
-        "This whole thing was made",
-        "by Pete Hering using his",
-        "excellent PixelApp game",
-        "framework, but...",
-        "He used ForeignGuyMike's videos",
-        "and assets for much of it."
+    private final String[] text = {
+        "Help? You want help?",
+        "",
+        "Sorry, there is no help.",
+        "You're on your own here.",
+        "Figure it out for yourself.",
+        "",
+        "Good luck and goodbye!"
     };
     private boolean enter;
 
-    public CreditsScene (Assets a, int width, int height)
+    public HelpScene (Assets a, int width, int height)
     {
         this.a = a;
         this.width = width;
@@ -44,9 +45,9 @@ public class CreditsScene extends Scene
         g.setColor (Color.BLACK);
         g.fillRect (0, 0, width, height);
 
-        for (int i = 0; i < credits.length; i++)
+        for (int i = 0; i < text.length; i++)
         {
-            a.getFont (1).draw (g, credits[i], 20, 50 + (i * 32));
+            a.getFont (1).draw (g, text[i], 20, 50 + (i * 32));
         }
     }
 

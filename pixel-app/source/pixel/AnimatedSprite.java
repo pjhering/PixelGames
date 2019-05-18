@@ -16,6 +16,7 @@ public class AnimatedSprite implements Sprite
     private final int height;
     private final long millisPerFrame;
     private long startTime;
+	private boolean playedOnce;
 
     public AnimatedSprite (BufferedImage image, int x, int y, int width, int height, int rows, int cols, long msPerFrame)
     {
@@ -47,6 +48,7 @@ public class AnimatedSprite implements Sprite
         }
 
         startTime = System.currentTimeMillis ();
+		playedOnce = false;
     }
 
     public int getWidth ()
@@ -62,7 +64,12 @@ public class AnimatedSprite implements Sprite
     public void draw (Graphics g, int dx1, int dy1, int dx2, int dy2)
     {
         long now = System.currentTimeMillis ();
-        int i = (int) ((now - startTime) / millisPerFrame) % length;
+        int i = (int) ((now - startTime) / millisPerFrame);
+		if (i >= length)
+		{
+			i %= length;
+			playedOnce = true;
+		}
 
         g.drawImage (image, dx1, dy1, dx2, dy2, sx1[i], sy1[i], sx2[i], sy2[i], null);
     }
@@ -70,5 +77,6 @@ public class AnimatedSprite implements Sprite
     public void reset ()
     {
         startTime = System.currentTimeMillis ();
+		playedOnce = false;
     }
 }

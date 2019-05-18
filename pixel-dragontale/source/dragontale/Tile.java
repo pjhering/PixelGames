@@ -1,24 +1,24 @@
 package dragontale;
 
-import java.awt.image.BufferedImage;
+import pixel.Sprite;
 
 public class Tile
 {
     public static final int NORMAL = 0;
     public static final int BLOCKED = 1;
 
-    private BufferedImage image;
+	private Sprite sprite;
     private int type;
 
-    public Tile (BufferedImage image, int type)
+    public Tile (Sprite sprite, int type)
     {
-        this.image = image;
+        this.sprite = sprite;
         this.type = type;
     }
 
-    public BufferedImage getImage ()
+    public Sprite getSprite ()
     {
-        return this.image;
+        return this.sprite;
     }
 
     public int getType ()

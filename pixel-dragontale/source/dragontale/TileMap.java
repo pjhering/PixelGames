@@ -37,14 +37,10 @@ public class TileMap
         numTilesAcross = tileSet.getWidth () / tileSize;
         tiles = new Tile[2][numTilesAcross];
 
-        BufferedImage subimg;
         for (int col = 0; col < numTilesAcross; col++)
         {
-            subimg =  tileSet.getSubimage (col * tileSize, 0, tileSize, tileSize);
-            tiles[0][col] = new Tile (subimg, Tile.NORMAL);
-
-            subimg = tileSet.getSubimage (col * tileSize, tileSize, tileSize, tileSize);
-            tiles[1][col] = new Tile (subimg, Tile.BLOCKED);
+            tiles[0][col] = new Tile (a.getSprite(col), Tile.NORMAL);
+            tiles[1][col] = new Tile (a.getSprite(col + numTilesAcross), Tile.BLOCKED);
         }
     }
 
@@ -118,12 +114,11 @@ public class TileMap
                 int rc = map[row][col];
                 int r = rc / numTilesAcross;
                 int c = rc % numTilesAcross;
-
-                g.drawImage (
-                    tiles[r][c].getImage (),
-                    (int) x + col * tileSize,
-                    (int) y + row * tileSize,
-                    null);
+				int x1 = (int) x + col * tileSize;
+				int y1 = (int) y + row * tileSize;
+				int x2 = x1 + tileSize;
+				int y2 = y1 + tileSize;
+				tiles[r][c].getSprite ().draw (g, x1, y1, x2, y2);
             }
         }
     }

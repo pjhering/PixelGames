@@ -14,12 +14,15 @@ public class MenuScene extends Scene
     private final String[] option = {"Start", "Help", "Credits"};
     private int selected = 0;
     private boolean enter = false;
+    private Background bg;
 
     public MenuScene (Assets a, int width, int height)
     {
         this.a = a;
         this.width = width;
         this.height = height;
+        this.bg = new Background (a.getImage (1), 0.1);
+        this.bg.setVector (0.05, 0);
     }
 
     @Override
@@ -34,19 +37,24 @@ public class MenuScene extends Scene
                     break;
 
                 case 1:
+                    mgr.replace (new HelpScene (a, width, height));
                     break;
-                    
+
                 case 2:
                     mgr.replace (new CreditsScene (a, width, height));
                     break;
             }
+        }
+        else
+        {
+            bg.update (elapsedMillis);
         }
     }
 
     @Override
     public void render (Graphics g)
     {
-        g.drawImage (a.getImage (1), 0, 0, null);
+        bg.draw (g);
 
         for (int i = 0; i < option.length; i++)
         {
