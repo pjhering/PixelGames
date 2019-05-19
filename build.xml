@@ -13,6 +13,10 @@
     <property name="ces-build" value="${basedir}/pixel-ces/build"/>
     <property name="ces-jar" value="${dist}/pixel-ces.jar"/>
 
+    <property name="maps-source" value="${basedir}/pixel-maps/source"/>
+    <property name="maps-build" value="${basedir}/pixel-maps/build"/>
+    <property name="maps-jar" value="${dist}/pixel-maps.jar"/>
+
     <property name="breakout-library" value="${basedir}/pixel-breakout/library"/>
     <property name="breakout-source" value="${basedir}/pixel-breakout/source"/>
     <property name="breakout-resource" value="${basedir}/pixel-breakout/resource"/>
@@ -36,7 +40,8 @@
 
     <target name="clean">
         <delete dir="${app-build}"/>
-        <delete dir="${ces-build}"/>
+		<delete dir="${ces-build}"/>
+		<delete dir="${maps-build}"/>
         <delete dir="${breakout-build}"/>
         <delete dir="${snake-build}"/>
         <delete dir="${dragontale-build}"/>
@@ -75,6 +80,21 @@
     <target name="ces-package" depends="ces-compile">
         <jar destfile="${ces-jar}">
             <fileset dir="${ces-build}"/>
+        </jar>
+    </target>
+
+    <target name="maps-prepare">
+        <mkdir dir="${maps-build}"/>
+    </target>
+
+    <target name="maps-compile" depends="maps-prepare, app-compile">
+        <javac srcdir="${maps-source}" destdir="${maps-build}" includeantruntime="false">
+        </javac>
+    </target>
+
+    <target name="maps-package" depends="maps-compile">
+        <jar destfile="${maps-jar}">
+            <fileset dir="${maps-build}"/>
         </jar>
     </target>
 
@@ -150,7 +170,8 @@
         </jar>
     </target>
 
-    <target name="all" depends="app-package, ces-package, breakout-package, snake-package, dragontale-package">
+    <target name="all"
+		depends="app-package, ces-package, maps-package, breakout-package, snake-package, dragontale-package">
     </target>
 
 </project>
