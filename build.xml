@@ -89,6 +89,9 @@
 
     <target name="maps-compile" depends="maps-prepare, app-compile">
         <javac srcdir="${maps-source}" destdir="${maps-build}" includeantruntime="false">
+            <classpath>
+                <pathelement path="${app-build}"/>
+            </classpath>
         </javac>
     </target>
 
