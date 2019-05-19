@@ -31,6 +31,52 @@ public abstract class MapObject
 		this.maxDeltaX = this.maxDeltaY = Double.MAX_VALUE;
 	}
 
+    public boolean isMovingLeft ()
+    {
+        return deltaX < 0.0;
+    }
+
+    public boolean isMovingRight ()
+    {
+        return deltaX > 0.0;
+    }
+
+    public boolean isMovingUp ()
+    {
+        return deltaY < 0.0;
+    }
+
+    public boolean isMovingDown ()
+    {
+        return deltaY > 0.0;
+    }
+
+    public void addToDeltaX (double amount)
+    {
+        deltaX = Math.min (maxDeltaX, Math.max (minDeltaX, deltaX + xAmount));
+
+        if (Math.abs (deltaX) < 0.001)
+        {
+            deltaX = 0.0;
+        }
+    }
+
+    public void addToDeltaY (double amount)
+    {
+        deltaY = Math.min (maxDeltaY, Math.max (minDeltaY, deltaY + yAmount));
+
+        if (Math.abs (deltaY) < 0.001)
+        {
+            deltaY = 0.0;
+        }
+    }
+
+    public void addToDelta (double xAmount, double yAmount)
+    {
+        addToDeltaX (xAmount);
+        addToDeltaY (yAmount);
+    }
+
 	public boolean intersects (MapObject that)
 	{
 		return this.x < that.x + that.width
