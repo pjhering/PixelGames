@@ -4,10 +4,20 @@ pubilc class TileMap
 {
     private Background background;
     private TileLayer tileLayer;
-    private List<ObjectLayer> objectLayers;
+    private final List<ObjectLayer> objectLayers;
+    private final Camera camera;
 
     public TileMap ()
     {
+        this.objectLayers = new ArrayList<> ();
+        this.camera = new Camera ();
+    }
+
+    public TileMap (Background bg, TileLayer tl)
+    {
+        this ();
+        this.background = bg;
+        this.tileLayer = tl;
     }
 
     public void update (long elapsedMillis)
@@ -43,8 +53,8 @@ pubilc class TileMap
         return objectLayers;
     }
 
-    public void setObjectLayers (List<ObjectLayer> value)
+    public Camera getCamera ()
     {
-        this.objectLayers = value;
+        return camera;
     }
 }
