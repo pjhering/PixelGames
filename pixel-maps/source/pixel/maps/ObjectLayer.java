@@ -9,12 +9,19 @@ public class ObjectLayer implements Iterable<MapObject>
 	private final Set<MapObject> active;
     private final Set<MapObject> toBeAdded;
     private final Set<MapObject> toBeRemoved;
+    private final MapObjectObserver observer;
 
     public ObjectLayer ()
     {
         this.active = new HashSet<> ();
         this.toBeAdded = new HashSet<> ();
         this.toBeRemoved = new HashSet<> ();
+    }
+
+    public ObjectLayer (MapObjectObserver observer)
+    {
+        this ();
+        this.observer = observer;
     }
 
     @Override
