@@ -17,12 +17,19 @@
     <property name="maps-build" value="${basedir}/pixel-maps/build"/>
     <property name="maps-jar" value="${dist}/pixel-maps.jar"/>
 
-    <property name="breakout-library" value="${basedir}/pixel-breakout/library"/>
+    <property name="breakout-library" value="${basedir}/pixel-run2right/library"/>
     <property name="breakout-source" value="${basedir}/pixel-breakout/source"/>
     <property name="breakout-resource" value="${basedir}/pixel-breakout/resource"/>
     <property name="breakout-build" value="${basedir}/pixel-breakout/build"/>
     <property name="breakout-main" value="breakout.Main"/>
     <property name="breakout-jar" value="${dist}/breakout.jar"/>
+
+    <property name="run2right-library" value="${basedir}/pixel-run2right/library"/>
+    <property name="run2right-source" value="${basedir}/pixel-run2right/source"/>
+    <property name="run2right-resource" value="${basedir}/pixel-run2right/resource"/>
+    <property name="run2right-build" value="${basedir}/pixel-run2right/build"/>
+    <property name="run2right-main" value="run2right.Main"/>
+    <property name="run2right-jar" value="${dist}/run2right.jar"/>
 
     <property name="snake-library" value="${basedir}/pixel-snake/library"/>
     <property name="snake-source" value="${basedir}/pixel-snake/source"/>
@@ -148,6 +155,30 @@
         </jar>
     </target>
 
+	    <target name="run2right-prepare">
+	        <mkdir dir="${run2right-build}"/>
+	    </target>
+
+	    <target name="run2right-compile" depends="run2right-prepare">
+	        <javac srcdir="${run2right-source}" destdir="${run2right-build}" includeantruntime="false">
+	            <classpath>
+	                <pathelement path="${app-build}"/>
+	            </classpath>
+	        </javac>
+	    </target>
+
+	    <target name="run2right-package" depends="run2right-compile">
+	        <jar destfile="${run2right-jar}">
+	            <fileset dir="${app-build}"/>
+	            <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
+	            <fileset dir="${run2right-build}"/>
+	            <fileset dir="${run2right-resource}"/>
+	            <manifest>
+	                <attribute name="Main-Class" value="${run2right-main}"/>
+	            </manifest>
+	        </jar>
+	    </target>
+
     <target name="dragontale-prepare">
         <mkdir dir="${dragontale-build}"/>
     </target>
@@ -168,7 +199,7 @@
     </target>
 
     <target name="all"
-		depends="app-package, ces-package, maps-package, breakout-package, snake-package, dragontale-package">
+		depends="app-package, ces-package, maps-package, breakout-package, snake-package, run2right-package, dragontale-package">
     </target>
 
 </project>
