@@ -9,7 +9,7 @@ public class ObjectLayer implements Iterable<MapObject>
 	private final Set<MapObject> active;
     private final Set<MapObject> toBeAdded;
     private final Set<MapObject> toBeRemoved;
-    private final MapObjectObserver observer;
+    private MapObjectObserver observer;
 
     public ObjectLayer ()
     {
@@ -27,7 +27,7 @@ public class ObjectLayer implements Iterable<MapObject>
     @Override
     public Iterator<MapObject> iterator ()
     {
-        return active;
+        return active.iterator ();
     }
 
     public void add (MapObject obj)
@@ -42,13 +42,13 @@ public class ObjectLayer implements Iterable<MapObject>
 
     public void update (long elapsedMillis)
     {
-        if (!toBeRemoved.empty ())
+        if (!toBeRemoved.isEmpty ())
         {
             active.removeAll (toBeRemoved);
             toBeRemoved.clear ();
         }
 
-        if (!toBeAdded.empty ())
+        if (!toBeAdded.isEmpty ())
         {
             active.addAll (toBeAdded);
             toBeAdded.clear ();

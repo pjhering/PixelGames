@@ -53,7 +53,7 @@ public abstract class MapObject
 
     public void addToDeltaX (double amount)
     {
-        deltaX = Math.min (maxDeltaX, Math.max (minDeltaX, deltaX + xAmount));
+        deltaX = Math.min (maxDeltaX, Math.max (minDeltaX, deltaX + amount));
 
         if (Math.abs (deltaX) < 0.001)
         {
@@ -63,7 +63,7 @@ public abstract class MapObject
 
     public void addToDeltaY (double amount)
     {
-        deltaY = Math.min (maxDeltaY, Math.max (minDeltaY, deltaY + yAmount));
+        deltaY = Math.min (maxDeltaY, Math.max (minDeltaY, deltaY + amount));
 
         if (Math.abs (deltaY) < 0.001)
         {

@@ -1,6 +1,10 @@
 package pixel.maps;
 
-pubilc class TileMap
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TileMap
 {
     private Background background;
     private TileLayer tileLayer;
