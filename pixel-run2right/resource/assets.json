@@ -1,3 +1,15 @@
 {
-	"fonts":[]
+    "imageFiles":[],
+    "spriteDefs":[],
+	"fontFiles":[
+        "/font/SansSerif/BOLD/16/0x000000/font.txt",
+        "/font/SansSerif/BOLD/16/0xFF0000/font.txt",
+        "/font/SansSerif/BOLD/16/0xFFFFFF/font.txt",
+        "/font/SansSerif/BOLD/32/0x000000/font.txt",
+        "/font/SansSerif/BOLD/32/0xFF0000/font.txt",
+        "/font/SansSerif/BOLD/32/0xFFFFFF/font.txt",
+        "/font/SansSerif/BOLD/64/0x000000/font.txt",
+        "/font/SansSerif/BOLD/64/0xFF0000/font.txt",
+        "/font/SansSerif/BOLD/64/0xFFFFFF/font.txt"
+    ]
 }
