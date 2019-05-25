@@ -1,5 +1,7 @@
 {
-    "imageFiles":[],
+    "imageFiles":[
+		"/images/sprites.png"
+	],
     "spriteDefs":[],
 	"fontFiles":[
         "/font/SansSerif/BOLD/16/0x000000/font.txt",
