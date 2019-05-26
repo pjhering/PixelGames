@@ -38,19 +38,12 @@
     <property name="snake-main" value="snake.Main"/>
     <property name="snake-jar" value="${dist}/snake.jar"/>
 
-    <property name="dragontale-source" value="${basedir}/pixel-dragontale/source"/>
-    <property name="dragontale-resource" value="${basedir}/pixel-dragontale/resource"/>
-    <property name="dragontale-build" value="${basedir}/pixel-dragontale/build"/>
-    <property name="dragontale-main" value="Main.Game"/>
-    <property name="dragontale-jar" value="${dist}/dragontale.jar"/>
-
     <target name="clean">
         <delete dir="${app-build}"/>
 		<delete dir="${ces-build}"/>
 		<delete dir="${maps-build}"/>
         <delete dir="${breakout-build}"/>
         <delete dir="${snake-build}"/>
-        <delete dir="${dragontale-build}"/>
         <delete dir="${dist}"/>
     </target>
 
@@ -155,51 +148,32 @@
         </jar>
     </target>
 
-	    <target name="run2right-prepare">
-	        <mkdir dir="${run2right-build}"/>
-	    </target>
-
-	    <target name="run2right-compile" depends="run2right-prepare">
-	        <javac srcdir="${run2right-source}" destdir="${run2right-build}" includeantruntime="false">
-	            <classpath>
-	                <pathelement path="${app-build}"/>
-	            </classpath>
-	        </javac>
-	    </target>
-
-	    <target name="run2right-package" depends="run2right-compile">
-	        <jar destfile="${run2right-jar}">
-	            <fileset dir="${app-build}"/>
-	            <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
-	            <fileset dir="${run2right-build}"/>
-	            <fileset dir="${run2right-resource}"/>
-	            <manifest>
-	                <attribute name="Main-Class" value="${run2right-main}"/>
-	            </manifest>
-	        </jar>
-	    </target>
-
-    <target name="dragontale-prepare">
-        <mkdir dir="${dragontale-build}"/>
+    <target name="run2right-prepare">
+        <mkdir dir="${run2right-build}"/>
     </target>
 
-    <target name="dragontale-compile" depends="dragontale-prepare">
-        <javac srcdir="${dragontale-source}" destdir="${dragontale-build}" includeantruntime="false">
+    <target name="run2right-compile" depends="run2right-prepare">
+        <javac srcdir="${run2right-source}" destdir="${run2right-build}" includeantruntime="false">
+            <classpath>
+                <pathelement path="${app-build}"/>
+            </classpath>
         </javac>
     </target>
 
-    <target name="dragontale-package" depends="dragontale-compile">
-        <jar destfile="${dragontale-jar}">
-            <fileset dir="${dragontale-build}"/>
-            <fileset dir="${dragontale-resource}"/>
+    <target name="run2right-package" depends="run2right-compile">
+        <jar destfile="${run2right-jar}">
+            <fileset dir="${app-build}"/>
+            <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
+            <fileset dir="${run2right-build}"/>
+            <fileset dir="${run2right-resource}"/>
             <manifest>
-                <attribute name="Main-Class" value="${dragontale-main}"/>
+                <attribute name="Main-Class" value="${run2right-main}"/>
             </manifest>
         </jar>
     </target>
 
     <target name="all"
-		depends="app-package, ces-package, maps-package, breakout-package, snake-package, run2right-package, dragontale-package">
+		depends="app-package, ces-package, maps-package, breakout-package, snake-package, run2right-package">
     </target>
 
 </project>
