@@ -42,7 +42,8 @@
         <delete dir="${app-build}"/>
 		<delete dir="${ces-build}"/>
 		<delete dir="${maps-build}"/>
-        <delete dir="${breakout-build}"/>
+		<delete dir="${breakout-build}"/>
+		<delete dir="${run2right-build}"/>
         <delete dir="${snake-build}"/>
         <delete dir="${dist}"/>
     </target>
@@ -90,6 +91,7 @@
         <javac srcdir="${maps-source}" destdir="${maps-build}" includeantruntime="false">
             <classpath>
                 <pathelement path="${app-build}"/>
+                <fileset dir="${app-library}" includes="**/*.jar"/>
             </classpath>
         </javac>
     </target>
@@ -155,14 +157,16 @@
     <target name="run2right-compile" depends="run2right-prepare">
         <javac srcdir="${run2right-source}" destdir="${run2right-build}" includeantruntime="false">
             <classpath>
-                <pathelement path="${app-build}"/>
+				<pathelement path="${app-build}"/>
+				<pathelement path="${maps-build}"/>
             </classpath>
         </javac>
     </target>
 
     <target name="run2right-package" depends="run2right-compile">
         <jar destfile="${run2right-jar}">
-            <fileset dir="${app-build}"/>
+			<fileset dir="${app-build}"/>
+			<fileset dir="${maps-build}"/>
             <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
             <fileset dir="${run2right-build}"/>
             <fileset dir="${run2right-resource}"/>

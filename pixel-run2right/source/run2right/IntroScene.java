@@ -24,12 +24,17 @@ public class IntroScene extends Scene
 
     public void update (SceneManager mgr, long elapsedMillis)
     {
+		if (exit)
+		{
+			mgr.replace (new GameScene (a, width, height));
+		}
     }
 
     public void render (Graphics g)
     {
 		g.setColor (Color.BLACK);
 		g.fillRect (0, 0, width, height);
+		a.getFont (2).draw (g, getClass ().getSimpleName (), 10, 30);
     }
 
     public void activate ()
