@@ -39,9 +39,10 @@ public class GameScene extends Scene
 
     public void render (Graphics g)
     {
-		g.setColor (Color.WHITE);
-		g.fillRect (0, 0, width, height);
-		a.getFont (0).draw (g, getClass ().getSimpleName (), 10, 30);
+		// g.setColor (Color.WHITE);
+		// g.fillRect (0, 0, width, height);
+		// a.getFont (0).draw (g, getClass ().getSimpleName (), 10, 30);
+		tileMap.draw (g);
     }
 
     public void activate ()

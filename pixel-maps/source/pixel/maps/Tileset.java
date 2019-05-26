@@ -39,4 +39,9 @@ public class Tileset
 	{
 		return tiles[i];
 	}
+
+	public int getTileSize ()
+	{
+		return tileSize;
+	}
 }

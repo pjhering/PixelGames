@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.List;
 import javax.imageio.ImageIO;
 
 public class LevelFile
@@ -12,6 +13,7 @@ public class LevelFile
 	private String tilesetImageFile;
 	private int tileSize;
 	private int[][] tileLayer;
+	private List<ObjectDef> objectLayer;
 
 	public LevelFile ()
 	{
@@ -72,5 +74,15 @@ public class LevelFile
 	public void setTileLayer (int[][] value)
 	{
 		this.tileLayer = value;
+	}
+
+	public List<ObjectDef> getObjectLayer ()
+	{
+		return objectLayer;
+	}
+
+	public void setObjectLayer (List<ObjectDef> value)
+	{
+		this.objectLayer = value;
 	}
 }
