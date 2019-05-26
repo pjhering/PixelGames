@@ -1,6 +1,6 @@
 package pixel.maps;
 
-pubic class LevelFile
+public class LevelFile
 {
 	private String tilesetImageFile;
 	private int tileSize;
