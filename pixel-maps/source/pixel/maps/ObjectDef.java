@@ -11,6 +11,27 @@ public class ObjectDef
 	{
 	}
 
+	public MapObject getMapObject ()
+	{
+		if (shape != null)
+		{
+			if (shape.length == 2)
+			{
+				return new MapObject (properties, shape[0], shape[1], shape[2]);
+			}
+			else if (shape.length == 3)
+			{
+				return new MapObject (properties, shape[0], shape[1], shape[2]);
+			}
+			else if (shape.length == 4)
+			{
+				return new MapObject (properties, shape[0], shape[1], shape[2], shape[3]);
+			}
+		}
+
+		return null;
+	}
+
 	public double[] getShape ()
 	{
 		return shape;

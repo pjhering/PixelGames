@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 
@@ -33,9 +34,25 @@ public class LevelFile
     public TileMap getTileMap () throws Exception
     {
         Tileset tileset = createTileset ();
+		List<MapObject> mapObjects = createObjectLayer ();
         TileMap tileMap = new TileMap (tileset, tileLayer);
         return tileMap;
     }
+
+	private List<MapObject> createObjectLayer ()
+	{
+		List<MapObject> list = new ArrayList<> ();
+
+		if (this.objectLayer != null)
+		{
+			for (ObjectDef def : this.objectLayer)
+			{
+				list.add (def.getMapObject ());
+			}
+		}
+
+		return list;
+	}
 
     private Tileset createTileset () throws Exception
     {
