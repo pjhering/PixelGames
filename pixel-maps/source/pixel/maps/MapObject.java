@@ -147,6 +147,64 @@ public class MapObject
 			&& a.y + a.height > b.y;
 	}
 
+    public double getTop ()
+    {
+        switch (type)
+        {
+            case POINT:
+            case RECTANGLE:
+                return y;
+            case CIRCLE:
+                return y - radius;
+        }
+
+        return Double.NaN;
+    }
+
+    public double getBottom ()
+    {
+        switch (type)
+        {
+            case POINT:
+                return y;
+            case RECTANGLE:
+                return y + height;
+            case CIRCLE:
+                return y + radius;
+        }
+
+        return Double.NaN;
+    }
+
+    public double getLeft ()
+    {
+        switch (type)
+        {
+            case POINT:
+            case RECTANGLE:
+                return x;
+            case CIRCLE:
+                return x - radius;
+        }
+
+        return Double.NaN;
+    }
+
+    public double getRight ()
+    {
+        switch (type)
+        {
+            case POINT:
+                return x;
+            case RECTANGLE:
+                return x + width;
+            case CIRCLE:
+                return x + radius;
+        }
+
+        return Double.NaN;
+    }
+
 	public double getX ()
 	{
 		return x;

@@ -33,6 +33,14 @@ public class TileMap
 		}
 	}
 
+    public Tile getTile (double x, double y)
+    {
+        int c = (int)(x / tileset.getTileSize ());
+        int r = (int)(y / tileset.getTileSize ());
+        int i = tileLayer[r][c];
+        return tileset.getTile (i);
+    }
+
     public Tileset getTileset ()
     {
         return tileset;

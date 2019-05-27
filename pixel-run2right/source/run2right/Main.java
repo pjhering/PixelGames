@@ -6,7 +6,7 @@ import pixel.Assets;
 public class Main
 {
 	public static final int WIDTH = 800;
-	public static final int HEIGHT = 450;
+	public static final int HEIGHT = 448;
 
     public static void main (String[] args) throws Exception
     {
