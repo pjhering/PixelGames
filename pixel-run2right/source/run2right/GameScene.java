@@ -16,21 +16,12 @@ public class GameScene extends Scene
     private final int width;
     private final int height;
 	private boolean exit;
-	private TileMap tileMap;
 
     public GameScene (Assets a, int width, int height)
     {
         this.a = Objects.requireNonNull (a);
         this.width = Math.abs (width);
         this.height = Math.abs (height);
-		try
-		{
-			this.tileMap = LevelFile.load ("/maps/level1.json").getTileMap ();
-		}
-		catch (Exception ex)
-		{
-			throw new RuntimeException (ex);
-		}
     }
 
     public void update (SceneManager mgr, long elapsedMillis)
@@ -39,9 +30,6 @@ public class GameScene extends Scene
 
     public void render (Graphics g)
     {
-        tileMap.draw (g);
-        a.getFont (0).draw (g, "LIVES:  0", 10, 20);
-        a.getFont (0).draw (g, "POINTS: 0", 10, 40);
     }
 
     public void activate ()
