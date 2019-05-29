@@ -1,12 +1,20 @@
 package run2right;
 
+import java.awt.Graphics;
+import pixel.Assets;
+import pixel.maps.LevelFile;
+import pixel.maps.TileMap;
+
 public class LevelOne
 {
+	private Assets a;
     private TileMap tileMap;
     private Player player;
 
-    public LevelOne ()
+    public LevelOne (Assets a)
     {
+		this.a = a;
+
         try
         {
             this.tileMap = LevelFile.load ("/maps/level1.json").getTileMap ();
@@ -19,7 +27,6 @@ public class LevelOne
 
     public boolean update (long elapsedMillis)
     {
-        tileMap.update (elapsedMillis);
         return true;
     }
 

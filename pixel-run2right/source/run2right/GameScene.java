@@ -1,9 +1,7 @@
 package run2right;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.util.Objects;
 import pixel.Assets;
 import pixel.Scene;
 import pixel.SceneManager;
@@ -16,12 +14,14 @@ public class GameScene extends Scene
     private final int width;
     private final int height;
 	private boolean exit;
+	private LevelOne level1;
 
     public GameScene (Assets a, int width, int height)
     {
-        this.a = Objects.requireNonNull (a);
+        this.a = a;
         this.width = Math.abs (width);
         this.height = Math.abs (height);
+		this.level1 = new LevelOne (a);
     }
 
     public void update (SceneManager mgr, long elapsedMillis)
@@ -30,6 +30,7 @@ public class GameScene extends Scene
 
     public void render (Graphics g)
     {
+		level1.draw (g);
     }
 
     public void activate ()
