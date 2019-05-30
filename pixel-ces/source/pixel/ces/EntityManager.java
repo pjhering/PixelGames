@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+@SuppressWarnings("unchecked")
 public class EntityManager
 {
     private int componentClassCount;
