@@ -1,13 +1,14 @@
 package run2right;
 
 import java.awt.Graphics;
+import pixel.Assets;
 import pixel.maps.MapObject;
 
 public class Player extends Actor
 {
-	public Player (MapObject obj)
+	public Player (MapObject obj, Assets a)
 	{
-		super (obj);
+		super (obj, a);
 	}
 
 	public boolean update (long elapsed)

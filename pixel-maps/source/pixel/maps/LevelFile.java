@@ -35,7 +35,7 @@ public class LevelFile
     {
         Tileset tileset = createTileset ();
 		List<MapObject> mapObjects = createObjectLayer ();
-        TileMap tileMap = new TileMap (tileset, tileLayer);
+        TileMap tileMap = new TileMap (tileset, tileLayer, mapObjects);
         return tileMap;
     }
 

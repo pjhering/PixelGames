@@ -1,13 +1,15 @@
 package pixel.maps;
 
 import java.awt.Graphics;
+import java.util.List;
 
 public class TileMap
 {
     private Tileset tileset;
 	private int[][] tileLayer;
+    private List<MapObject> objectLayer;
 
-    public TileMap (Tileset ts, int[][] tl)
+    public TileMap (Tileset ts, int[][] tl, List<MapObject> ol)
     {
         this.tileset = ts;
 		this.tileLayer = tl;
@@ -50,4 +52,9 @@ public class TileMap
 	{
 		return tileLayer;
 	}
+
+    public List<MapObject> getObjectLayer ()
+    {
+        return objectLayer;
+    }
 }
