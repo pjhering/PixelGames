@@ -2,6 +2,7 @@ package pixel.maps;
 
 import java.util.Map;
 
+@SuppressWarnings("unchecked")
 public class ObjectDef
 {
 	private String name;
@@ -10,7 +11,6 @@ public class ObjectDef
 
 	public ObjectDef ()
 	{
-		System.out.println ("pixel.maps.ObjectDef ()");
 	}
 
 	public MapObject getMapObject ()

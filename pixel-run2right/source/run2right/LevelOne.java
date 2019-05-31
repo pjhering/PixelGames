@@ -27,7 +27,6 @@ public class LevelOne
                 switch (obj.getName ())
                 {
                     case "player":
-						System.out.println (obj.getName ());
                         player = new Player (obj, a);
                         break;
                 }

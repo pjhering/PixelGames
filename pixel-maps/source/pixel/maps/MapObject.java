@@ -26,8 +26,6 @@ public class MapObject
 		this.height = height;
 		this.type = Type.RECTANGLE;
 		this.properties = new HashMap<> ();
-
-		System.out.println ("pixel.maps.MapObject : RECTANGLE");
 	}
 
 	public MapObject (String name, Map<String, Object> properties, double x, double y, double radius)
@@ -38,8 +36,6 @@ public class MapObject
 		this.radius = radius;
 		this.type = Type.CIRCLE;
 		this.properties = new HashMap<> ();
-
-		System.out.println ("pixel.maps.MapObject : CIRCLE");
 	}
 
 	public MapObject (String name, Map<String, Object> properties, double x, double y)
@@ -49,8 +45,6 @@ public class MapObject
 		this.y = y;
 		this.type = Type.POINT;
 		this.properties = new HashMap<> ();
-
-		System.out.println ("pixel.maps.MapObject : POINT");
 	}
 
 	public String getName ()
