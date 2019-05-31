@@ -18,6 +18,7 @@ public class LevelFile
 
 	public LevelFile ()
 	{
+		this.objectLayer = new ArrayList<> ();
 	}
 
 	public static LevelFile load (String path) throws Exception
@@ -43,12 +44,9 @@ public class LevelFile
 	{
 		List<MapObject> list = new ArrayList<> ();
 
-		if (this.objectLayer != null)
+		for (ObjectDef def : this.objectLayer)
 		{
-			for (ObjectDef def : this.objectLayer)
-			{
-				list.add (def.getMapObject ());
-			}
+			list.add (def.getMapObject ());
 		}
 
 		return list;

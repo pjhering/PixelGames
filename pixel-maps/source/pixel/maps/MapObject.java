@@ -7,6 +7,7 @@ public class MapObject
 {
 	public static enum Type { POINT, CIRCLE, RECTANGLE }
 
+	protected String name;
 	protected double x = Double.NaN;
 	protected double y = Double.NaN;
 	protected double width = Double.NaN;
@@ -15,8 +16,9 @@ public class MapObject
 	protected Type type;
 	protected Map<String, Object> properties;
 
-	public MapObject (Map<String, Object> properties, double x, double y, double width, double height)
+	public MapObject (String name, Map<String, Object> properties, double x, double y, double width, double height)
 	{
+		this.name = name;
 		this.properties = properties;
 		this.x = x;
 		this.y = y;
@@ -24,9 +26,11 @@ public class MapObject
 		this.height = height;
 		this.type = Type.RECTANGLE;
 		this.properties = new HashMap<> ();
+
+		System.out.println ("pixel.maps.MapObject : RECTANGLE");
 	}
 
-	public MapObject (Map<String, Object> properties, double x, double y, double radius)
+	public MapObject (String name, Map<String, Object> properties, double x, double y, double radius)
 	{
 		this.properties = properties;
 		this.x = x;
@@ -34,15 +38,29 @@ public class MapObject
 		this.radius = radius;
 		this.type = Type.CIRCLE;
 		this.properties = new HashMap<> ();
+
+		System.out.println ("pixel.maps.MapObject : CIRCLE");
 	}
 
-	public MapObject (Map<String, Object> properties, double x, double y)
+	public MapObject (String name, Map<String, Object> properties, double x, double y)
 	{
 		this.properties = properties;
 		this.x = x;
 		this.y = y;
 		this.type = Type.POINT;
 		this.properties = new HashMap<> ();
+
+		System.out.println ("pixel.maps.MapObject : POINT");
+	}
+
+	public String getName ()
+	{
+		return name;
+	}
+
+	public void setName (String value)
+	{
+		this.name = value;
 	}
 
 	public static boolean hits (MapObject a, MapObject b)

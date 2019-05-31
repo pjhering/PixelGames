@@ -155,7 +155,10 @@
     </target>
 
     <target name="run2right-compile" depends="run2right-prepare">
-        <javac srcdir="${run2right-source}" destdir="${run2right-build}" includeantruntime="false">
+        <javac srcdir="${run2right-source}"
+			   destdir="${run2right-build}"
+			   debug="on"
+			   includeantruntime="false">
             <classpath>
 				<pathelement path="${app-build}"/>
 				<pathelement path="${maps-build}"/>

@@ -24,18 +24,12 @@ public class LevelOne
             List<MapObject> objectLayer = tileMap.getObjectLayer ();
             for (MapObject obj : objectLayer)
             {
-                Map<String, Object> properties = obj.getProperties ();
-
-                if (properties.containsKey ("name"))
+                switch (obj.getName ())
                 {
-                    String name = (String) properties.get ("name");
-
-                    switch (name)
-                    {
-                        case "player":
-                            player = new Player (obj, a);
-                            break;
-                    }
+                    case "player":
+						System.out.println (obj.getName ());
+                        player = new Player (obj, a);
+                        break;
                 }
             }
         }

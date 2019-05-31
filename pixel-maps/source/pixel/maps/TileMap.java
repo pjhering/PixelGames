@@ -13,6 +13,7 @@ public class TileMap
     {
         this.tileset = ts;
 		this.tileLayer = tl;
+		this.objectLayer = ol;
     }
 
 	public void draw (Graphics g)
