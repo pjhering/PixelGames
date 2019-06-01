@@ -90,7 +90,8 @@ public class Assets
 
         for (int i = 0; i < length; i++)
         {
-            a.sprites[i] = createSprite (a, a.spriteDefs[i]);
+            Sprite s = createSprite (a, a.spriteDefs[i]);
+            a.sprites[i] = s;
         }
     }
 

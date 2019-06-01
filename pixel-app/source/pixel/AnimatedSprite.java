@@ -34,14 +34,14 @@ public class AnimatedSprite implements Sprite
 
         for (int r = 0; r < rows; r++)
         {
-            int yy1 = r * this.height;
+            int yy1 = y + r * this.height;
             int yy2 = yy1 + this.height;
 
             for (int c = 0; c < cols; c++)
             {
                 sy1[i] = yy1;
                 sy2[i] = yy2;
-                sx1[i] = c * this.width;
+                sx1[i] = x + c * this.width;
                 sx2[i] = sx1[i] + this.width;
                 i += 1;
             }
