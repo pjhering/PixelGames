@@ -8,26 +8,32 @@ public class TileMap
     private Tileset tileset;
 	private int[][] tileLayer;
     private List<MapObject> objectLayer;
+    private int mapWidth;
+    private int mapHeight;
 
     public TileMap (Tileset ts, int[][] tl, List<MapObject> ol)
     {
         this.tileset = ts;
 		this.tileLayer = tl;
 		this.objectLayer = ol;
+        this.mapHeight = tl.length * tileset.getTileSize ();
+        this.mapWidth = tl[0].length * tileset.getTileSize ();
     }
 
-	public void draw (Graphics g)
+	public void draw (Graphics g, int xOffset, int yOffset, int startRow, int endRow, int startColumn, int endColumn)
 	{
 		int size = tileset.getTileSize ();
 
-		for (int r = 0; r < tileLayer.length; r++)
+		// for (int r = 0; r < tileLayer.length; r++)
+        for (int r = startRow; r <= endRow; r++)
 		{
-			int y1 = r * size;
+			int y1 = (r * size) - yOffset;
 			int y2 = y1 + size;
 
-			for (int c = 0; c < tileLayer[r].length; c++)
+			// for (int c = 0; c < tileLayer[r].length; c++)
+            for (int c = startColumn; c <= endColumn; c++)
 			{
-				int x1 = c * size;
+				int x1 = (c * size) - xOffset;
 				int x2 = x1 + size;
 				int i = tileLayer[r][c];
 
@@ -44,6 +50,16 @@ public class TileMap
         return tileset.getTile (i);
     }
 
+    public int getColumnForPixel (int x)
+    {
+        return x / tileset.getTileSize ();
+    }
+
+    public int getRowForPixel (int y)
+    {
+        return y / tileset.getTileSize ();
+    }
+
     public Tileset getTileset ()
     {
         return tileset;
@@ -57,5 +73,15 @@ public class TileMap
     public List<MapObject> getObjectLayer ()
     {
         return objectLayer;
+    }
+
+    public int getMapWidth ()
+    {
+        return mapWidth;
+    }
+
+    public int getMapHeight ()
+    {
+        return mapHeight;
     }
 }
