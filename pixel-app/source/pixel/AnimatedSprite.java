@@ -2,6 +2,7 @@ package pixel;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 import static java.util.Objects.requireNonNull;
 
 public class AnimatedSprite implements Sprite
@@ -51,6 +52,21 @@ public class AnimatedSprite implements Sprite
 		playedOnce = false;
     }
 
+    private AnimatedSprite (AnimatedSprite that)
+    {
+        this.image = that.image;
+        this.length = that.length;
+        this.sx1 = Arrays.copyOf (that.sx1, length);
+        this.sy1 = Arrays.copyOf (that.sy1, length);
+        this.sx2 = Arrays.copyOf (that.sx2, length);
+        this.sy2 = Arrays.copyOf (that.sy2, length);
+        this.width = that.width;
+        this.height = that.height;
+        this.millisPerFrame = that.millisPerFrame;
+        this.startTime = that.startTime;
+        this.playedOnce = that.playedOnce;
+    }
+
     public int getWidth ()
     {
         return width;
@@ -78,5 +94,10 @@ public class AnimatedSprite implements Sprite
     {
         startTime = System.currentTimeMillis ();
 		playedOnce = false;
+    }
+
+    public Sprite duplicate ()
+    {
+        return new AnimatedSprite (this);
     }
 }

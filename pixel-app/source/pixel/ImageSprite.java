@@ -30,6 +30,17 @@ public class ImageSprite implements Sprite
         this (image, 0, 0, image.getWidth (), image.getHeight ());
     }
 
+    private ImageSprite (ImageSprite that)
+    {
+        this.image = that.image;
+        this.sx1 = that.sx1;
+        this.sy1 = that.sy1;
+        this.sx2 = that.sx2;
+        this.sy2 = that.sy2;
+        this.width = that.width;
+        this.height = that.height;
+    }
+
     public int getWidth ()
     {
         return width;
@@ -47,5 +58,10 @@ public class ImageSprite implements Sprite
 
     public void reset ()
     {
+    }
+
+    public Sprite duplicate ()
+    {
+        return new ImageSprite (this);
     }
 }
