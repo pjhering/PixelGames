@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import pixel.Assets;
+import pixel.maps.Camera;
 import pixel.maps.LevelFile;
 import pixel.maps.MapObject;
 import pixel.maps.TileMap;
@@ -15,10 +16,12 @@ public class LevelOne
     private TileMap tileMap;
     private Player player;
     private List<Enemy> enemies;
+    private Camera camera;
 
-    public LevelOne (Assets a)
+    public LevelOne (Assets a, int width, int height)
     {
 		this.a = a;
+        this.camera = new Camera (width, height);
         this.enemies = new ArrayList<> ();
 
         try
@@ -46,12 +49,14 @@ public class LevelOne
 
     public boolean update (long elapsedMillis)
     {
+        camera.getViewport ().update (tileMap, player.getMapObject ());
         return true;
     }
 
     public void draw (Graphics g)
     {
-        tileMap.draw (g);
+        // tileMap.draw (g);
+        camera.render (g, tileMap);
         player.draw (g, 0, 0);
         enemies.forEach (e -> e.draw (g, 0, 0));
         a.getFont (0).draw (g, "LIVES:  0", 10, 20);

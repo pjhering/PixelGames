@@ -21,7 +21,7 @@ public class GameScene extends Scene
         this.a = a;
         this.width = Math.abs (width);
         this.height = Math.abs (height);
-		this.level1 = new LevelOne (a);
+		this.level1 = new LevelOne (a, width, height);
     }
 
     public void update (SceneManager mgr, long elapsedMillis)
