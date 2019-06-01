@@ -19,8 +19,20 @@
 	],
 	"objectLayer":[
 		{
-			"shape":[32, 128, 32, 32],
-			"name":"player"
+            "name":"player",
+			"shape":[32, 32, 32, 32]
+		},
+        {
+            "name":"enemy",
+			"shape":[32, 384, 32, 32]
+		},
+        {
+            "name":"enemy",
+			"shape":[96, 384, 32, 32]
+		},
+        {
+            "name":"enemy",
+			"shape":[160, 384, 32, 32]
 		}
 	]
 }

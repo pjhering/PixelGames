@@ -5,9 +5,9 @@ import java.awt.Graphics;
 import pixel.Assets;
 import pixel.maps.MapObject;
 
-public class Player extends Actor
+public class Enemy extends Actor
 {
-	public Player (MapObject obj, Assets a)
+	public Enemy (MapObject obj, Assets a)
 	{
 		super (obj, a);
 	}
@@ -24,6 +24,6 @@ public class Player extends Actor
 		int x2 = x1 + (int) object.getWidth ();
 		int y2 = y1 + (int) object.getHeight ();
 
-		a.getSprite (4).draw (g, x1, y1, x2, y2);
+		a.getSprite (6).draw (g, x1, y1, x2, y2);
 	}
 }

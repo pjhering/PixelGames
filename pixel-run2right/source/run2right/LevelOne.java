@@ -1,6 +1,7 @@
 package run2right;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import pixel.Assets;
@@ -13,10 +14,12 @@ public class LevelOne
 	private Assets a;
     private TileMap tileMap;
     private Player player;
+    private List<Enemy> enemies;
 
     public LevelOne (Assets a)
     {
 		this.a = a;
+        this.enemies = new ArrayList<> ();
 
         try
         {
@@ -28,6 +31,9 @@ public class LevelOne
                 {
                     case "player":
                         player = new Player (obj, a);
+                        break;
+                    case "enemy":
+                        enemies.add (new Enemy (obj, a));
                         break;
                 }
             }
@@ -47,6 +53,7 @@ public class LevelOne
     {
         tileMap.draw (g);
         player.draw (g, 0, 0);
+        enemies.forEach (e -> e.draw (g, 0, 0));
         a.getFont (0).draw (g, "LIVES:  0", 10, 20);
         a.getFont (0).draw (g, "POINTS: 0", 10, 40);
     }
