@@ -8,6 +8,8 @@ public class TileMap
     private Tileset tileset;
 	private int[][] tileLayer;
     private List<MapObject> objectLayer;
+	private int columnCount;
+	private int rowCount;
     private int mapWidth;
     private int mapHeight;
 
@@ -16,6 +18,8 @@ public class TileMap
         this.tileset = ts;
 		this.tileLayer = tl;
 		this.objectLayer = ol;
+		this.rowCount = tl.length;
+		this.columnCount = tl[0].length;
         this.mapHeight = tl.length * tileset.getTileSize ();
         this.mapWidth = tl[0].length * tileset.getTileSize ();
     }
@@ -86,4 +90,14 @@ public class TileMap
     {
         return mapHeight;
     }
+
+	public int getColumnCount ()
+	{
+		return columnCount;
+	}
+
+	public int getRowCount ()
+	{
+		return rowCount;
+	}
 }
