@@ -222,25 +222,59 @@ public class MapObject
 		return x;
 	}
 
+    public void setX (double value)
+    {
+        this.x = value;
+    }
+
 	public double getY ()
 	{
 		return y;
 	}
+
+    public void setY (double value)
+    {
+        this.y = value;
+    }
 
 	public double getWidth ()
 	{
 		return width;
 	}
 
+    public void setWidth (double value)
+    {
+        if (this.type == Type.RECTANGLE)
+        {
+            this.width = Math.abs (value);
+        }
+    }
+
 	public double getHeight ()
 	{
 		return height;
 	}
 
+    public void setHeight (double value)
+    {
+        if (this.type == Type.RECTANGLE)
+        {
+            this.height = Math.abs (value);
+        }
+    }
+
 	public double getRadius ()
 	{
 		return radius;
 	}
+
+    public void setRadius (double value)
+    {
+        if (this.type == Type.CIRCLE)
+        {
+            this.radius = Math.abs (value);
+        }
+    }
 
 	public Type getType ()
 	{

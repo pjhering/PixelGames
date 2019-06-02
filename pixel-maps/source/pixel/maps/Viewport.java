@@ -23,6 +23,8 @@ public class Viewport
         x2 = x1 + width;
         y1 = Math.min (Math.max (0, oy1 - height / 2), map.getMapHeight () - height);
         y2 = y1 + height;
+        //
+        // System.out.printf ("%d, %d - %d, %d\n", x1, y1, x2, y2);
     }
 
     public int getX1 ()

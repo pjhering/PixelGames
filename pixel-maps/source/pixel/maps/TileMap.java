@@ -24,18 +24,20 @@ public class TileMap
 	{
 		int size = tileset.getTileSize ();
 
-		// for (int r = 0; r < tileLayer.length; r++)
         for (int r = startRow; r <= endRow; r++)
 		{
+            if (r >= tileLayer.length) continue;
+
 			int y1 = (r * size) - yOffset;
 			int y2 = y1 + size;
 
-			// for (int c = 0; c < tileLayer[r].length; c++)
             for (int c = startColumn; c <= endColumn; c++)
 			{
+                if (c >= tileLayer[r].length) continue;
+
 				int x1 = (c * size) - xOffset;
 				int x2 = x1 + size;
-				int i = tileLayer[r][c];
+                int i = tileLayer[r][c];
 
 				tileset.getTile (i).draw (g, x1, y1, x2, y2);
 			}

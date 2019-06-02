@@ -25,6 +25,8 @@ public class Camera
         int startRow = map.getRowForPixel (yOffset);
         int endRow = map.getRowForPixel (viewport.getY2 ());
 
+        System.out.printf ("offsets: %d, %d; columns: %d, %d; rows: %d, %d\n", xOffset, yOffset, startColumn, endColumn, startRow, endRow);
+
         map.draw (g, xOffset, yOffset, startRow, endRow, startColumn, endColumn);
     }
 }
