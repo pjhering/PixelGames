@@ -32,6 +32,7 @@ public class LevelOne
         try
         {
             this.tileMap = LevelFile.load ("/maps/level1.json").getTileMap ();
+			System.out.printf ("rows: %d, columns: %d\n", tileMap.getRowCount (), tileMap.getColumnCount ());
             List<MapObject> objectLayer = tileMap.getObjectLayer ();
             for (MapObject obj : objectLayer)
             {
