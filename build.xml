@@ -2,6 +2,11 @@
          basedir="."
          default="all">
 
+    <property environment="env"/>
+    <condition property="DEBUG" value="${env.DEBUG}" else="off">
+        <isset property="env.DEBUG"/>
+    </condition>
+
     <property name="dist" value="${basedir}/dist"/>
 
     <property name="app-library" value="${basedir}/pixel-app/library"/>
@@ -49,12 +54,13 @@
     </target>
 
     <target name="app-prepare">
+        <echo>debug is ${DEBUG}</echo>
         <mkdir dir="${dist}"/>
         <mkdir dir="${app-build}"/>
     </target>
 
     <target name="app-compile" depends="app-prepare">
-        <javac srcdir="${app-source}" destdir="${app-build}" includeantruntime="false">
+        <javac srcdir="${app-source}" destdir="${app-build}" includeantruntime="false" debug="${DEBUG}">
             <classpath>
                 <fileset dir="${app-library}" includes="**/*.jar"/>
             </classpath>
@@ -73,7 +79,7 @@
     </target>
 
     <target name="ces-compile" depends="ces-prepare, app-compile">
-        <javac srcdir="${ces-source}" destdir="${ces-build}" includeantruntime="false">
+        <javac srcdir="${ces-source}" destdir="${ces-build}" includeantruntime="false" debug="${DEBUG}">
         </javac>
     </target>
 
@@ -88,7 +94,7 @@
     </target>
 
     <target name="maps-compile" depends="maps-prepare, app-compile">
-        <javac srcdir="${maps-source}" destdir="${maps-build}" includeantruntime="false">
+        <javac srcdir="${maps-source}" destdir="${maps-build}" includeantruntime="false" debug="${DEBUG}">
             <classpath>
                 <pathelement path="${app-build}"/>
                 <fileset dir="${app-library}" includes="**/*.jar"/>
@@ -107,7 +113,7 @@
     </target>
 
     <target name="breakout-compile" depends="breakout-prepare, ces-compile">
-        <javac srcdir="${breakout-source}" destdir="${breakout-build}" includeantruntime="false">
+        <javac srcdir="${breakout-source}" destdir="${breakout-build}" includeantruntime="false" debug="${DEBUG}">
             <classpath>
                 <pathelement path="${app-build}"/>
             </classpath>
@@ -131,7 +137,7 @@
     </target>
 
     <target name="snake-compile" depends="snake-prepare, ces-compile">
-        <javac srcdir="${snake-source}" destdir="${snake-build}" includeantruntime="false">
+        <javac srcdir="${snake-source}" destdir="${snake-build}" includeantruntime="false"  debug="${DEBUG}">
             <classpath>
                 <pathelement path="${app-build}"/>
             </classpath>
@@ -157,7 +163,7 @@
     <target name="run2right-compile" depends="run2right-prepare">
         <javac srcdir="${run2right-source}"
 			   destdir="${run2right-build}"
-			   debug="on"
+			   debug="${DEBUG}"
 			   includeantruntime="false">
             <classpath>
 				<pathelement path="${app-build}"/>
