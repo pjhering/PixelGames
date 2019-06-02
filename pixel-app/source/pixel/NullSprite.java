@@ -32,4 +32,9 @@ public class NullSprite implements Sprite
 	{
 		// not implemented
 	}
+
+    public Sprite duplicate ()
+    {
+        return new NullSprite (width, height);
+    }
 }
