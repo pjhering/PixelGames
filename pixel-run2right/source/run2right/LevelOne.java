@@ -18,6 +18,11 @@ public class LevelOne
     private List<Enemy> enemies;
     private Camera camera;
 
+    //ERASE THESE
+    private double minPlayerX, maxPlayerX;
+    private double minPlayerY, maxPlayerY;
+    private boolean left, up;
+
     public LevelOne (Assets a, int width, int height)
     {
 		this.a = a;
@@ -34,6 +39,12 @@ public class LevelOne
                 {
                     case "player":
                         player = new Player (obj, a);
+                        minPlayerX = 0.0;
+                        minPlayerY = 0.0;
+                        maxPlayerX = width - obj.getWidth ();
+                        maxPlayerY = height - obj.getHeight ();
+                        left = false;
+                        up = false;
                         break;
                     case "enemy":
                         enemies.add (new Enemy (obj, a));
@@ -49,6 +60,50 @@ public class LevelOne
 
     public boolean update (long elapsedMillis)
     {
+        double x = player.getMapObject ().getX ();
+        double y = player.getMapObject ().getY ();
+
+        if (left)
+        {
+            x -= 1.0;
+
+            if (x <= minPlayerX)
+            {
+                left = false;
+            }
+        }
+        else
+        {
+            x += 1.0;
+
+            if (x >= maxPlayerX)
+            {
+                left = true;
+            }
+        }
+
+        if (up)
+        {
+            y -= 1.0;
+
+            if (y <= minPlayerY)
+            {
+                up = false;
+            }
+        }
+        else
+        {
+            y += 1.0;
+
+            if (y >= maxPlayerY)
+            {
+                up = true;
+            }
+        }
+
+        player.getMapObject ().setX (x);
+        player.getMapObject ().setY (y);
+
         camera.getViewport ().update (tileMap, player.getMapObject ());
         return true;
     }
@@ -58,8 +113,8 @@ public class LevelOne
         // tileMap.draw (g);
         camera.render (g, tileMap);
         player.draw (g, 0, 0);
-        enemies.forEach (e -> e.draw (g, 0, 0));
-        a.getFont (0).draw (g, "LIVES:  0", 10, 20);
-        a.getFont (0).draw (g, "POINTS: 0", 10, 40);
+        // enemies.forEach (e -> e.draw (g, 0, 0));
+        // a.getFont (0).draw (g, "LIVES:  0", 10, 20);
+        // a.getFont (0).draw (g, "POINTS: 0", 10, 40);
     }
 }

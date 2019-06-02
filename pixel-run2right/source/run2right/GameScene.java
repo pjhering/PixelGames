@@ -26,6 +26,7 @@ public class GameScene extends Scene
 
     public void update (SceneManager mgr, long elapsedMillis)
     {
+        level1.update (elapsedMillis);
     }
 
     public void render (Graphics g)
