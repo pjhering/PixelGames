@@ -17,6 +17,12 @@ public class LevelOne
     private List<Enemy> enemies;
 	private Camera camera;
 
+//ERASE THIS STUFF
+	private boolean left, up;
+	private double playerMinX, playerMinY;
+	private double playerMaxX, playerMaxY;
+//ERASE THIS STUFF
+
     public LevelOne (Assets a, int width, int height)
     {
 		this.a = a;
@@ -34,6 +40,14 @@ public class LevelOne
                 {
                     case "player":
                         player = new Player (obj, a);
+//ERASE THIS STUFF
+						left = false;
+						up = false;
+						playerMinX = 0.0;
+						playerMinY = 0.0;
+						playerMaxX = tileMap.getMapWidth () - obj.getWidth ();
+						playerMaxY = tileMap.getMapHeight () - obj.getHeight ();
+//ERASE THIS STUFF
                         break;
                     case "enemy":
                         enemies.add (new Enemy (obj, a));
@@ -49,16 +63,66 @@ public class LevelOne
 
     public boolean update (long elapsedMillis)
     {
+		movePlayer ();
 		camera.update (tileMap, player);
         return true;
     }
+
+	private void movePlayer ()
+	{
+		double x = player.getMapObject ().getX ();
+		double y = player.getMapObject ().getY ();
+
+// ERASE THIS STUFF
+		if (left)
+		{
+			x -= 1.0;
+
+			if (x <= playerMinX)
+			{
+				left = false;
+			}
+		}
+		else
+		{
+			x += 1.0;
+
+			if (x >= playerMaxX)
+			{
+				left = true;
+			}
+		}
+// ERASE THIS STUFF
+		if (up)
+		{
+			y -= 1.0;
+
+			if (y <= playerMinY)
+			{
+				up = false;
+			}
+		}
+		else
+		{
+			y += 1.0;
+
+			if (y >= playerMaxY)
+			{
+				up = true;
+			}
+		}
+// ERASE THIS STUFF
+
+		player.getMapObject ().setX (x);
+		player.getMapObject ().setY (y);
+	}
 
     public void draw (Graphics g)
     {
 		camera.render (g, tileMap);
 		camera.render (g, player);
 		camera.render (g, enemies);
-		
+
         a.getFont (0).draw (g, "LIVES:  0", 10, 20);
         a.getFont (0).draw (g, "POINTS: 0", 10, 40);
     }
