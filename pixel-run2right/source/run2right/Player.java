@@ -49,11 +49,11 @@ public class Player extends Actor
 
 	public void draw (Graphics g, int xOffset, int yOffset)
 	{
-		int x1 = xOffset + (int) object.getX ();
-		int y1 = yOffset + (int) object.getY ();
+		int x1 = (int) (object.getX () - xOffset);
+		int y1 = (int) (object.getY () - yOffset);
 		int x2 = x1 + (int) object.getWidth ();
 		int y2 = y1 + (int) object.getHeight ();
 
-		a.getSprite (4).draw (g, x1, y1, x2, y2);
+		sprites[index].draw (g, x1, y1, x2, y2);
 	}
 }

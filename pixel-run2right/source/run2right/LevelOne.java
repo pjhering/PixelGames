@@ -111,7 +111,6 @@ public class LevelOne
 				up = true;
 			}
 		}
-// ERASE THIS STUFF
 
 		player.getMapObject ().setX (x);
 		player.getMapObject ().setY (y);
