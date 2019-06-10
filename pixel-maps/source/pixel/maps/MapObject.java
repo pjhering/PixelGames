@@ -173,19 +173,19 @@ public class MapObject
         return Double.NaN;
     }
 
-		public void setTop (double value)
+	public void setTop (double value)
+	{
+		switch (type)
 		{
-				switch (type)
-				{
-						case POINT:
-						case RECTANGLE:
-								y = value;
-								break;
-						case CIRCLE:
-								y = value + radius;
-								break;
-				}
+			case POINT:
+			case RECTANGLE:
+				y = value;
+				break;
+			case CIRCLE:
+				y = value + radius;
+				break;
 		}
+	}
 
     public double getBottom ()
     {
@@ -202,21 +202,21 @@ public class MapObject
         return Double.NaN;
     }
 
-		public void setBottom(double value)
+	public void setBottom(double value)
+	{
+		switch(type)
 		{
-				switch(type)
-				{
-						case POINT:
-								y = value;
-								break;
-						case RECTANGLE:
-								y = value - height;
-								break;
-						case CIRCLE:
-								y = value - radius;
-								break;
-				}
+			case POINT:
+				y = value;
+				break;
+			case RECTANGLE:
+				y = value - height;
+				break;
+			case CIRCLE:
+				y = value - radius;
+				break;
 		}
+	}
 
     public double getLeft ()
     {
@@ -232,19 +232,19 @@ public class MapObject
         return Double.NaN;
     }
 
-		public void setLeft (double value)
+	public void setLeft (double value)
+	{
+		switch (type)
 		{
-				switch (type)
-				{
-						case POINT:
-						case RECTANGLE:
-								x = value;
-								break;
-						case CIRCLE:
-								x = value + radius;
-								break;
-				}
+			case POINT:
+			case RECTANGLE:
+				x = value;
+				break;
+			case CIRCLE:
+				x = value + radius;
+				break;
 		}
+	}
 
     public double getRight ()
     {
@@ -261,21 +261,21 @@ public class MapObject
         return Double.NaN;
     }
 
-		public void setRight (double value)
+	public void setRight (double value)
+	{
+		switch (type)
 		{
-				switch (type)
-				{
-						case POINT:
-								x = value;
-								break;
-						case RECTANGLE:
-								x = value - width;
-								break;
-						case CIRCLE:
-								x = value - radius;
-								break;
-				}
+			case POINT:
+				x = value;
+				break;
+			case RECTANGLE:
+				x = value - width;
+				break;
+			case CIRCLE:
+				x = value - radius;
+				break;
 		}
+	}
 
 	public double getX ()
 	{
