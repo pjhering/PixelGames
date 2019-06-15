@@ -43,6 +43,13 @@
     <property name="snake-main" value="snake.Main"/>
     <property name="snake-jar" value="${dist}/snake.jar"/>
 
+    <property name="spacebattle-library" value="${basedir}/pixel-spacebattle/library"/>
+    <property name="spacebattle-source" value="${basedir}/pixel-spacebattle/source"/>
+    <property name="spacebattle-resource" value="${basedir}/pixel-spacebattle/resource"/>
+    <property name="spacebattle-build" value="${basedir}/pixel-spacebattle/build"/>
+    <property name="spacebattle-main" value="spacebattle.Main"/>
+    <property name="spacebattle-jar" value="${dist}/spacebattle.jar"/>
+
     <target name="clean">
         <delete dir="${app-build}"/>
 		<delete dir="${ces-build}"/>
@@ -50,6 +57,7 @@
 		<delete dir="${breakout-build}"/>
 		<delete dir="${run2right-build}"/>
         <delete dir="${snake-build}"/>
+        <delete dir="${spacebattle-build}"/>
         <delete dir="${dist}"/>
     </target>
 
@@ -156,6 +164,30 @@
         </jar>
     </target>
 
+    <target name="spacebattle-prepare">
+        <mkdir dir="${spacebattle-build}"/>
+    </target>
+
+    <target name="spacebattle-compile" depends="spacebattle-prepare">
+        <javac srcdir="${spacebattle-source}" destdir="${spacebattle-build}" includeantruntime="false"  debug="${DEBUG}">
+            <classpath>
+                <pathelement path="${app-build}"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="spacebattle-package" depends="spacebattle-compile">
+        <jar destfile="${spacebattle-jar}">
+            <fileset dir="${app-build}"/>
+            <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
+            <fileset dir="${spacebattle-build}"/>
+            <fileset dir="${spacebattle-resource}"/>
+            <manifest>
+                <attribute name="Main-Class" value="${spacebattle-main}"/>
+            </manifest>
+        </jar>
+    </target>
+
     <target name="run2right-prepare">
         <mkdir dir="${run2right-build}"/>
     </target>
@@ -186,7 +218,7 @@
     </target>
 
     <target name="all"
-		depends="app-package, ces-package, maps-package, breakout-package, snake-package, run2right-package">
+		depends="app-package, ces-package, maps-package, breakout-package, snake-package, spacebattle-package, run2right-package">
     </target>
 
 </project>
