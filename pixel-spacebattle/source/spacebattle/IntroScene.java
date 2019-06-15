@@ -16,6 +16,7 @@ public class IntroScene extends Scene
     private boolean exit;
     private final String TEXT;
     private final int x;
+	private StarField bg;
 
     public IntroScene (Assets a, int width, int height)
     {
@@ -23,7 +24,8 @@ public class IntroScene extends Scene
         this.width = Math.abs (width);
         this.height = Math.abs (height);
         this.TEXT = a.getString (0);
-        this.x = (width - a.getFont (6).getWidth (TEXT)) / 2;
+        this.x = (width - a.getFont (5).getWidth (TEXT)) / 2;
+		this.bg = new StarField (width, height, 0.05, 300);
     }
 
     public void update (SceneManager mgr, long elapsedMillis)
@@ -32,13 +34,16 @@ public class IntroScene extends Scene
         {
             mgr.replace (new GameScene (a, width, height));
         }
+		else
+		{
+			bg.update (elapsedMillis);
+		}
     }
 
     public void render (Graphics g)
     {
-        g.setColor (a.getColor (4));
-        g.fillRect (0, 0, width, height);
-        a.getFont (6).draw (g, TEXT, x, 200);
+		bg.draw (g);
+        a.getFont (5).draw (g, TEXT, x, 200);
     }
 
     public void activate ()
