@@ -22,6 +22,8 @@ public abstract class Actor
 	{
 		this.object = obj;
         this.a = a;
+        minDeltaX = minDeltaY = Double.MIN_VALUE;
+        maxDeltaX = maxDeltaY = Double.MAX_VALUE;
 	}
 
 	public abstract boolean update (long elapsed);
