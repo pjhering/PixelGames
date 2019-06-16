@@ -4,6 +4,10 @@ import java.awt.Graphics;
 
 public abstract class Entity
 {
+    protected double x;
+    protected double y;
+    protected double radius;
+
 	public Entity (double x, double y, double radius)
 	{
 		this.x = x;
@@ -16,7 +20,7 @@ public abstract class Entity
 		double xsq = Math.pow (this.x - that.x, 2);
 		double ysq = Math.pow (this.y - that.y, 2);
 		double dsq = xsq + ysq;
-		double rsq = Math.pow (this.r + that.r, 2);
+		double rsq = Math.pow (this.radius + that.radius, 2);
 
 		return dsq < rsq;
 	}
