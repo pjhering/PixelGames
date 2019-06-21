@@ -18,6 +18,7 @@ public class AnimatedSprite implements Sprite
     private final long millisPerFrame;
     private long startTime;
 	private boolean playedOnce;
+	private AnimationObserver observer;
 
     public AnimatedSprite (BufferedImage image, int x, int y, int width, int height, int rows, int cols, long msPerFrame)
     {
@@ -77,6 +78,11 @@ public class AnimatedSprite implements Sprite
         return this.height;
     }
 
+	public void setObserver (AnimationObserver observer)
+	{
+		this.observer = observer;
+	}
+
     public void draw (Graphics g, int dx1, int dy1, int dx2, int dy2)
     {
         long now = System.currentTimeMillis ();
@@ -85,6 +91,11 @@ public class AnimatedSprite implements Sprite
 		{
 			i %= length;
 			playedOnce = true;
+
+			if (observer != null)
+			{
+				observer.onPlayedOnce (this);
+			}
 		}
 
         g.drawImage (image, dx1, dy1, dx2, dy2, sx1[i], sy1[i], sx2[i], sy2[i], null);
