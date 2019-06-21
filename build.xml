@@ -3,7 +3,7 @@
          default="all">
 
     <property environment="env"/>
-    <condition property="DEBUG" value="${env.DEBUG}" else="off">
+    <condition property="DEBUG" value="${env.DEBUG}" else="on">
         <isset property="env.DEBUG"/>
     </condition>
 
@@ -13,14 +13,6 @@
     <property name="app-source" value="${basedir}/pixel-app/source"/>
     <property name="app-build" value="${basedir}/pixel-app/build"/>
     <property name="app-jar" value="${dist}/pixel-app.jar"/>
-
-    <property name="ces-source" value="${basedir}/pixel-ces/source"/>
-    <property name="ces-build" value="${basedir}/pixel-ces/build"/>
-    <property name="ces-jar" value="${dist}/pixel-ces.jar"/>
-
-    <property name="maps-source" value="${basedir}/pixel-maps/source"/>
-    <property name="maps-build" value="${basedir}/pixel-maps/build"/>
-    <property name="maps-jar" value="${dist}/pixel-maps.jar"/>
 
     <property name="breakout-library" value="${basedir}/pixel-run2right/library"/>
     <property name="breakout-source" value="${basedir}/pixel-breakout/source"/>
@@ -52,8 +44,6 @@
 
     <target name="clean">
         <delete dir="${app-build}"/>
-		<delete dir="${ces-build}"/>
-		<delete dir="${maps-build}"/>
 		<delete dir="${breakout-build}"/>
 		<delete dir="${run2right-build}"/>
         <delete dir="${snake-build}"/>
@@ -82,45 +72,11 @@
         </jar>
     </target>
 
-    <target name="ces-prepare">
-        <mkdir dir="${ces-build}"/>
-    </target>
-
-    <target name="ces-compile" depends="ces-prepare, app-compile">
-        <javac srcdir="${ces-source}" destdir="${ces-build}" includeantruntime="false" debug="${DEBUG}">
-        </javac>
-    </target>
-
-    <target name="ces-package" depends="ces-compile">
-        <jar destfile="${ces-jar}">
-            <fileset dir="${ces-build}"/>
-        </jar>
-    </target>
-
-    <target name="maps-prepare">
-        <mkdir dir="${maps-build}"/>
-    </target>
-
-    <target name="maps-compile" depends="maps-prepare, app-compile">
-        <javac srcdir="${maps-source}" destdir="${maps-build}" includeantruntime="false" debug="${DEBUG}">
-            <classpath>
-                <pathelement path="${app-build}"/>
-                <fileset dir="${app-library}" includes="**/*.jar"/>
-            </classpath>
-        </javac>
-    </target>
-
-    <target name="maps-package" depends="maps-compile">
-        <jar destfile="${maps-jar}">
-            <fileset dir="${maps-build}"/>
-        </jar>
-    </target>
-
     <target name="breakout-prepare">
         <mkdir dir="${breakout-build}"/>
     </target>
 
-    <target name="breakout-compile" depends="breakout-prepare, ces-compile">
+    <target name="breakout-compile" depends="breakout-prepare">
         <javac srcdir="${breakout-source}" destdir="${breakout-build}" includeantruntime="false" debug="${DEBUG}">
             <classpath>
                 <pathelement path="${app-build}"/>
@@ -144,7 +100,7 @@
         <mkdir dir="${snake-build}"/>
     </target>
 
-    <target name="snake-compile" depends="snake-prepare, ces-compile">
+    <target name="snake-compile" depends="snake-prepare">
         <javac srcdir="${snake-source}" destdir="${snake-build}" includeantruntime="false"  debug="${DEBUG}">
             <classpath>
                 <pathelement path="${app-build}"/>
@@ -199,7 +155,6 @@
 			   includeantruntime="false">
             <classpath>
 				<pathelement path="${app-build}"/>
-				<pathelement path="${maps-build}"/>
             </classpath>
         </javac>
     </target>
@@ -207,7 +162,6 @@
     <target name="run2right-package" depends="run2right-compile">
         <jar destfile="${run2right-jar}">
 			<fileset dir="${app-build}"/>
-			<fileset dir="${maps-build}"/>
             <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
             <fileset dir="${run2right-build}"/>
             <fileset dir="${run2right-resource}"/>
@@ -218,7 +172,7 @@
     </target>
 
     <target name="all"
-		depends="app-package, ces-package, maps-package, breakout-package, snake-package, spacebattle-package, run2right-package">
+		depends="app-package, breakout-package, run2right-package, snake-package, spacebattle-package">
     </target>
 
 </project>
