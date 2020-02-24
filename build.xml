@@ -175,4 +175,8 @@
 		depends="app-package, breakout-package, run2right-package, snake-package, spacebattle-package">
     </target>
 
+	<target name="install" depends="all">
+		<copy file="${snake-jar}" todir="${user.home}/lib"/>
+	</target>
+
 </project>
