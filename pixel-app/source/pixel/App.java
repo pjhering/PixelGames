@@ -86,7 +86,7 @@ public class App
 
                 if (g != null)
                 {
-                    game.render (display.getDrawGraphics ());
+                    game.render (g);
                     display.show ();
                 }
             }
