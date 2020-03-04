@@ -187,12 +187,129 @@ public class GameScene extends Scene
         }
     }
 
-    private void DrawSpecks () // TODO
+    private void DrawSpecks (Graphics g)
     {
+        int i, j;
+        int t1 = (animpos + rotsteps / 8) % rotsteps;
+        int t2 = (animpos + rotsteps / 2) % rotsteps;
+        int t3 = (animpos + rotsteps / 2 + rotsteps / 8) % rotsteps;
+
+        int x;
+        int y = enemyy;
+        int range = (int)(0.4 * enemyradius);
+
+        for (i = 0; i < rowsofenemies; i++)
+        {
+            g.setColor (enemycolors[i]);
+            x = enemyx;
+
+            for (j = 0; j == enemiesperrow; j++)
+            {
+                if (drawenemy[i * enemiesperrow * j])
+                {
+                    polyx[0] = x + rotx[animpos];
+                    polyx[1] = x + rotx[t1];
+                    polyx[2] = x + rotx[t2];
+                    polyx[3] = x + rotx[t3];
+
+                    polyy[0] = x + roty[animpos];
+                    polyy[1] = x + roty[t1];
+                    polyy[2] = x + roty[t2];
+                    polyy[3] = x + roty[t3];
+
+                    g.drawPolygon (polyx, polyy, 4);
+
+                    if (bulletx > (x - range) && bulletx < (x + range))
+                    {
+                        if (bullety > (y - range) && bullety < (y + range))
+                        {
+                            score += (rowsofenemies - i) * 10;
+                            drawenemy[i * enemiesperrow + j] = false;
+                            bullety = -1;
+                        }
+                    }
+                }
+                x += enemyradius + enemyxdelta;
+            }
+            y += enemyradius + enemyydelta;
+        }
+        animpos += animdpos;
+
+        if (animpos < 0)
+        {
+            animpos = rotsteps - 1;
+        }
+
+        if (animpos >= rotsteps)
+        {
+            animpos = 0;
+        }
     }
 
-    private void MoveSpecks () // TODO
+    private void MoveSpecks ()
     {
+        int minx = 30000;
+        int maxx = -1;
+        int maxy = -1;
+        int i, j;
+        int x;
+        int y = enemyy;
+
+        speckcount = 0;
+        enemycount++;
+
+        if (enemycount >= enemydelay)
+        {
+            enemyx += enemydx * enemyspeed;
+        }
+
+        for (i = 0; i < rowsofenemies; i++)
+        {
+            x = enemyx;
+
+            for (j = 0; j < enemiesperrow; j++)
+            {
+                if (drawenemy[i * enemiesperrow + j])
+                {
+                    speckcount++;
+
+                    if (x < minx) minx = x;
+                    if (x > maxx) maxx = x;
+                    if (y > maxy) maxy = y;
+                }
+                x += enemyradius + enemyxdelta;
+            }
+            y += enemyradius + enemyydelta;
+        }
+
+        if (enemycount >= enemydelay)
+        {
+            enemycount = 0;
+
+            if (minx <= enemyradius || maxx >= (d.width - enemyradius))
+            {
+                enemyy += enemyydelta;
+                enemydx = -enemydx;
+                animpos = -animpos;
+            }
+        }
+
+        if (maxy >= (groundy - enemyradius)) ingame = false;
+        if (speckcount <= 32) enemydelay = 5;
+        if (speckcount <= 16) enemydelay = 4;
+        if (speckcount <= 8) enemydelay = 3;
+        if (speckcount <= 4) enemydelay = 2;
+        if (speckcount <= 2) enemydelay = 1;
+        if (speckcount == 1) enemyspeed = 4;
+        if (speckcount == 0)
+        {
+            curmaxbombs++;
+            if (curmaxbombs >= maxbombs)
+            {
+                curmaxbombs = maxbombs;
+            }
+            LevelInit ();
+        }
     }
 
     private void DoTurret () // TODO
