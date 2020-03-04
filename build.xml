@@ -21,12 +21,12 @@
     <property name="breakout-main" value="breakout.Main"/>
     <property name="breakout-jar" value="${dist}/breakout.jar"/>
 
-    <property name="run2right-library" value="${basedir}/pixel-run2right/library"/>
-    <property name="run2right-source" value="${basedir}/pixel-run2right/source"/>
-    <property name="run2right-resource" value="${basedir}/pixel-run2right/resource"/>
-    <property name="run2right-build" value="${basedir}/pixel-run2right/build"/>
-    <property name="run2right-main" value="run2right.Main"/>
-    <property name="run2right-jar" value="${dist}/run2right.jar"/>
+    <property name="spaceinvaders-library" value="${basedir}/pixel-spaceinvaders/library"/>
+    <property name="spaceinvaders-source" value="${basedir}/pixel-spaceinvaders/source"/>
+    <property name="spaceinvaders-resource" value="${basedir}/pixel-spaceinvaders/resource"/>
+    <property name="spaceinvaders-build" value="${basedir}/pixel-spaceinvaders/build"/>
+    <property name="spaceinvaders-main" value="spaceinvaders.Main"/>
+    <property name="spaceinvaders-jar" value="${dist}/spaceinvaders.jar"/>
 
     <property name="snake-library" value="${basedir}/pixel-snake/library"/>
     <property name="snake-source" value="${basedir}/pixel-snake/source"/>
@@ -35,19 +35,11 @@
     <property name="snake-main" value="snake.Main"/>
     <property name="snake-jar" value="${dist}/snake.jar"/>
 
-    <property name="spacebattle-library" value="${basedir}/pixel-spacebattle/library"/>
-    <property name="spacebattle-source" value="${basedir}/pixel-spacebattle/source"/>
-    <property name="spacebattle-resource" value="${basedir}/pixel-spacebattle/resource"/>
-    <property name="spacebattle-build" value="${basedir}/pixel-spacebattle/build"/>
-    <property name="spacebattle-main" value="spacebattle.Main"/>
-    <property name="spacebattle-jar" value="${dist}/spacebattle.jar"/>
-
     <target name="clean">
         <delete dir="${app-build}"/>
-		<delete dir="${breakout-build}"/>
-		<delete dir="${run2right-build}"/>
+	<delete dir="${breakout-build}"/>
+        <delete dir="${spaceinvaders-build}"/>
         <delete dir="${snake-build}"/>
-        <delete dir="${spacebattle-build}"/>
         <delete dir="${dist}"/>
     </target>
 
@@ -120,59 +112,32 @@
         </jar>
     </target>
 
-    <target name="spacebattle-prepare">
-        <mkdir dir="${spacebattle-build}"/>
+    <target name="spaceinvaders-prepare">
+        <mkdir dir="${spaceinvaders-build}"/>
     </target>
 
-    <target name="spacebattle-compile" depends="spacebattle-prepare">
-        <javac srcdir="${spacebattle-source}" destdir="${spacebattle-build}" includeantruntime="false"  debug="${DEBUG}">
+    <target name="spaceinvaders-compile" depends="spaceinvaders-prepare">
+        <javac srcdir="${spaceinvaders-source}" destdir="${spaceinvaders-build}" includeantruntime="false"  debug="${DEBUG}">
             <classpath>
                 <pathelement path="${app-build}"/>
             </classpath>
         </javac>
     </target>
 
-    <target name="spacebattle-package" depends="spacebattle-compile">
-        <jar destfile="${spacebattle-jar}">
+    <target name="spaceinvaders-package" depends="spaceinvaders-compile">
+        <jar destfile="${spaceinvaders-jar}">
             <fileset dir="${app-build}"/>
             <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
-            <fileset dir="${spacebattle-build}"/>
-            <fileset dir="${spacebattle-resource}"/>
+            <fileset dir="${spaceinvaders-build}"/>
+            <fileset dir="${spaceinvaders-resource}"/>
             <manifest>
-                <attribute name="Main-Class" value="${spacebattle-main}"/>
-            </manifest>
-        </jar>
-    </target>
-
-    <target name="run2right-prepare">
-        <mkdir dir="${run2right-build}"/>
-    </target>
-
-    <target name="run2right-compile" depends="run2right-prepare">
-        <javac srcdir="${run2right-source}"
-			   destdir="${run2right-build}"
-			   debug="${DEBUG}"
-			   includeantruntime="false">
-            <classpath>
-				<pathelement path="${app-build}"/>
-            </classpath>
-        </javac>
-    </target>
-
-    <target name="run2right-package" depends="run2right-compile">
-        <jar destfile="${run2right-jar}">
-			<fileset dir="${app-build}"/>
-            <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
-            <fileset dir="${run2right-build}"/>
-            <fileset dir="${run2right-resource}"/>
-            <manifest>
-                <attribute name="Main-Class" value="${run2right-main}"/>
+                <attribute name="Main-Class" value="${spaceinvaders-main}"/>
             </manifest>
         </jar>
     </target>
 
     <target name="all"
-		depends="app-package, breakout-package, run2right-package, snake-package, spacebattle-package">
+		depends="app-package, breakout-package, spaceinvaders-package, snake-package">
     </target>
 
 	<target name="install" depends="all">
