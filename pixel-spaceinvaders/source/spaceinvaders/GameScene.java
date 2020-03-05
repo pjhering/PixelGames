@@ -143,7 +143,6 @@ public class GameScene extends Scene
     public void keyPressed (KeyEvent e)
     {
         int key = e.getKeyCode ();
-        char keyChar = e.getKeyChar ();
 
         if (ingame)
         {
@@ -162,7 +161,7 @@ public class GameScene extends Scene
         }
         else
         {
-            if (keyChar == 's' || keyChar == 'S')
+            if (key == KeyEvent.VK_S)
             {
                 GameInit ();
             }
@@ -312,40 +311,236 @@ public class GameScene extends Scene
         }
     }
 
-    private void DoTurret () // TODO
+    private void DoTurret (Graphics g)
     {
+        int i;
+        int y = groundy - 1;
+
+        if (!dying)
+        {
+            turretx += turretdx;
+
+            if (turretx >= (d.width - turretmarge))
+            {
+                turretx = d.width - turretmarge;
+            }
+
+            if (turretx <= turretmarge)
+            {
+                turretx = turretmarge;
+            }
+        }
+        else
+        {
+            turretx += 6;
+
+            if (turretx >= d.width)
+            {
+                dying = false;
+                lives--;
+
+                if (lives <= 0)
+                {
+                    ingame = false;
+                }
+                else
+                {
+                    LevelContinue ();
+                }
+            }
+        }
+
+        g.setColor (turretcolor);
+        for (i = 6; i >= 0; i--)
+        {
+            g.drawLine (turretx - i, y, turretx + i, y);
+            y--;
+        }
     }
 
-    private void DoBullet () // TODO
+    private void DoBullet (Graphics g)
     {
+        if (bullety >= 0)
+        {
+            bullety -= 3;
+            g.setColor (bulletcolor);
+            g.drawLine (bulletx, bullety - 1, bulletx, bullety + 1);
+        }
     }
 
-    private void DoBombs () // TODO
+    private void DoBombs (Graphics g)
     {
+        int i;
+
+        g.setColor (bombcolor);
+        for (i = 0; i < curmaxbombs; i++)
+        {
+            if (drawbomb[i])
+            {
+                g.fillRect (bombx[i], bomby[i], 2, 3);
+                bomby[i] += bombspeed;
+
+                if (bombx[i] > (turretx - 6) && bombx[i] < (turretx + 5) && bomby[i] > (groundy - 5))
+                {
+                    dying = true;
+                }
+
+                if (bomby[i] > (groundy - 3))
+                {
+                    drawbomb[i] = false;
+                    bombcount--;
+                }
+            }
+        }
     }
 
-    private void CheckBombs () // TODO
+    private void CheckBombs ()
     {
+        int whichenemy;
+        int whichbomb;
+        int i;
+        int lowest;
+
+        if (Math.random () > 0.1 || bombcount >= curmaxbombs)
+        {
+            return;
+        }
+
+        whichbomb = 0;
+        while (drawbomb[whichbomb] && whichbomb < curmaxbombs)
+        {
+            whichbomb++;
+        }
+        if (whichbomb >= curmaxbombs)
+        {
+            return;
+        }
+
+        whichenemy = (int)(Math.random () * speckcount);
+        if (whichenemy >= speckcount)
+        {
+            whichenemy = speckcount - 1;
+        }
+
+        i = -1;
+        while (whichenemy >= 0)
+        {
+            i++;
+            while (i < rowsofenemies * enemiesperrow && !drawenemy[i])
+            {
+                i++;
+            }
+            whichenemy--;
+        }
+        if (i >= rowsofenemies * enemiesperrow)
+        {
+            return;
+        }
+
+        lowest = i;
+        while (i < rowsofenemies * enemiesperrow)
+        {
+            if (drawenemy[i])
+            {
+                lowest = i;
+            }
+            i += enemiesperrow;
+        }
+        bombx[whichbomb] = enemyx + (lowest % enemiesperrow) * (enemyradius + enemyxdelta);
+        bomby[whichbomb] = enemyy + (lowest / enemiesperrow) * (enemyradius + enemyxdelta);
+        drawbomb[whichbomb] = true;
+        bombcount++;
     }
 
-    private void ShowScore () // TODO
+    private void ShowScore (Graphics g)
     {
+        String s;
+        int i, j, y;
+
+        g.setFont (smallFont);
+        g.setColor (textcolor2);
+        s = "Score: " + score;
+        g.drawString (s, turretmarge, d.height - 8);
+
+        g.setColor (turretcolor);
+        for (j = 1; j < lives; j++)
+        {
+            y = d.height - 8;
+            for (i = 6; i >= 0; i--)
+            {
+                g.drawLine (d.width / 2 + j * 20 - i, y, d.width / 2 + j * 20 + i, y);
+                y--;
+            }
+        }
     }
 
-    private void ShowIntroScene () // TODO
+    private void ShowIntroScene (Graphics g)
     {
+        String s;
+
+        s = "SPACE INVADERS";
+        g.setFont (largeFont);
+        g.setColor (Color.WHITE);
+        g.drawString (s, (d.width - fmlarge.stringWidth (s)) / 2 + 2, d.height / 2 - 81);
+        g.setColor (textcolor1);
+        g.drawString (s, (d.width - fmlarge.stringWidth (s)) / 2, d.height / 2 - 80);
+
+        s = "(c)2020 Pete Hering";
+        g.setFont (smallFont);
+        g.setColor (Color.WHITE);
+        g.drawString (s, (d.width - fmsmall.stringWidth (s)) / 2 + 1, d.height / 2 - 61);
+        g.setColor (textcolor3);
+        g.drawString (s, (d.width - fmsmall.stringWidth (s)) / 2, d.height / 2 - 60);
+
+        s = "Press 's' to start game";
+        g.setColor (Color.WHITE);
+        g.drawString (s, (d.width - fmsmall.stringWidth (s)) / 2 + 1, d.height / 2 - 31);
+        g.setColor (textcolor2);
+        g.drawString (s, (d.width - fmsmall.stringWidth (s)) / 2, d.height / 2 - 30);
+
+        s = "Use cursor keys to move, space to shoot";
+        g.setColor (Color.WHITE);
+        g.drawString (s, (d.width - fmsmall.stringWidth (s)) / 2 + 1, d.height / 2 - 11);
+        g.setColor (textcolor2);
+        g.drawString (s, (d.width - fmsmall.stringWidth (s)) / 2, d.height / 2 - 10);
     }
 
-    public void update (SceneManager mgr, long elapsedMillis) // TODO
-    {
-    }
-
-    public void render (Graphics g) // TODO
+    public void render (Graphics g)
     {
         if (fmsmall == null || fmlarge == null)
         {
             FontMetricsInit (g);
         }
+
+        g.setColor (backgnd);
+        g.fillRect (0, 0, d.width, d.height);
+
+        g.setColor (groundcolor);
+        g.fillRect (0, groundy, d.width, groundheight);
+
+        if (ingame)
+        {
+            if (!dying)
+            {
+                MoveSpecks ();
+                DoBullet (g);
+                CheckBombs ();
+                DoBombs (g);
+            }
+            DoTurret (g);
+        }
+        DrawSpecks (g);
+
+        if (!ingame)
+        {
+            ShowIntroScene (g);
+        }
+
+        ShowScore (g);
+    }
+
+    public void update (SceneManager mgr, long elapsedMillis) // NOT USED
+    {
     }
 
     public void activate () // NOT USED
