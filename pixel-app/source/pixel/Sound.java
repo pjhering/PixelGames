@@ -16,23 +16,26 @@ public class Sound
     public Sound (URL url) throws Exception
     {
         this.url = url;
+        try (InputStream stream = url.openStream ())
+        {
+            AudioInputStream ais = AudioSystem.getAudioInputStream (stream);
+            clip = AudioSystem.getClip ();
+            clip.open (ais);
+        }
     }
 
     public void play ()
     {
-        if (clip == null || !clip.isActive ())
-        {
-            try (AudioInputStream stream = AudioSystem.getAudioInputStream (url))
-            {
-                Line.Info info = new Line.Info (Clip.class);
-                Clip clip = (Clip) AudioSystem.getLine (info);
-                clip.open (stream);
-                clip.loop (0);
-            }
-            catch (Exception ex)
-            {
-                ex.printStackTrace ();
-            }
-        }
+        clip.stop ();
+        clip.flush ();
+        clip.setFramePosition (0);
+        clip.start ();
+    }
+
+    public void dispose ()
+    {
+        clip.stop ();
+        clip.flush ();
+        clip.close ();
     }
 }
