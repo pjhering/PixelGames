@@ -12,4 +12,7 @@ public class Brick extends Entity
         super (x1, y1, x2, y2, sprite);
         this.hit = false;
     }
+
+    public void setHit (boolean value) { this.hit = value; }
+    public boolean isHit () { return hit; }
 }

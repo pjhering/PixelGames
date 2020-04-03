@@ -1,5 +1,7 @@
 package breakout;
 
+import static breakout.Main.HEIGHT;
+import static breakout.Main.WIDTH;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -82,25 +84,32 @@ public class GameScene extends Scene
     private void updateGame (long elapsedMillis)
     {
         ball.update (elapsedMillis);
-        // TODO: detect ball-paddle collision
-        detectBallPaddleCollision ();
+        if (paddle.hits (ball))
+        {
+            ball.bounce (false, true);
+        }
         // TODO: detect ball-brick collision
-        // TODO: detect top ball-wall collision
-        // TODO: detect left ball-wall collision
-        // TODO: detect right ball-wall collision
+        for (Brick brick : bricks)
+        {
+            if (!brick.isHit () && ball.hits (brick))
+            {
+                brick.setHit (true);
+                brick.setVisible (false);
+                ball.bounce (false, true);
+                break;
+            }
+        }
+        if (ball.getY2 () < 0 || ball.getY1 () > HEIGHT)
+        {
+            ball.bounce (false, true);
+        }
+        if (ball.getX1 () < 0 || ball.getX2 () > WIDTH)
+        {
+            ball.bounce (true, false);
+        }
         // TODO: detect ball-floor collision
         // TODO: update game state
     }
-
-    private void detectBallPaddleCollision ()
-    {
-        if (ball.hits (paddle))
-        {
-            ball.reverseX ();
-            ball.reverseY ();
-        }
-    }
-
     public void render (Graphics g)
     {
         g.setColor (a.getColor (0));

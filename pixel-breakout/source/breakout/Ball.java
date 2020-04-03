@@ -18,6 +18,10 @@ public class Ball extends Entity
     private final double origY2;
     private double deltaX;
     private double deltaY;
+    private double prevX1;
+    private double prevY1;
+    private double prevX2;
+    private double prevY2;
 
     public Ball (int x1, int y1, int x2, int y2, Sprite sprite)
     {
@@ -28,8 +32,29 @@ public class Ball extends Entity
         this.origY2 = y2;
     }
 
+    public void bounce (boolean horizontal, boolean vertical)
+    {
+        if (horizontal)
+        {
+            deltaX = deltaX * -1.0;
+            x1 = prevX1;
+            x2 = prevX2;
+        }
+        if (vertical)
+        {
+            deltaY = deltaY * -1.0;
+            y1 = prevY1;
+            y2 = prevY2;
+        }
+    }
+
     public void update (long elapsed)
     {
+        prevY1 = y1;
+        prevX1 = x1;
+        prevY2 = y2;
+        prevX2 = x2;
+
         double dx = deltaX * elapsed;
         double dy = deltaY * elapsed;
         x1 += dx;
@@ -46,35 +71,5 @@ public class Ball extends Entity
         y2 = origY2;
         deltaX = random (MIN_DELTA_X / 2.0, MAX_DELTA_X / 2.0);
         deltaY = MAX_DELTA_Y / 2.0;
-    }
-
-    public void reverseX ()
-    {
-        deltaX *= -1.0;
-    }
-
-    public void setDeltaX (double dx)
-    {
-        this.deltaX = clamp (dx, MIN_DELTA_X, MAX_DELTA_X);
-    }
-
-    public double getDeltaX ()
-    {
-        return deltaX;
-    }
-
-    public void reverseY ()
-    {
-        this.deltaY *= -1.0;
-    }
-
-    public void setDeltaY (double dy)
-    {
-        this.deltaY = clamp (dy, MIN_DELTA_Y, MAX_DELTA_X);
-    }
-
-    public double getDeltaY ()
-    {
-        return deltaY;
     }
 }
