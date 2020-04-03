@@ -83,12 +83,22 @@ public class GameScene extends Scene
     {
         ball.update (elapsedMillis);
         // TODO: detect ball-paddle collision
+        detectBallPaddleCollision ();
         // TODO: detect ball-brick collision
         // TODO: detect top ball-wall collision
         // TODO: detect left ball-wall collision
         // TODO: detect right ball-wall collision
         // TODO: detect ball-floor collision
         // TODO: update game state
+    }
+
+    private void detectBallPaddleCollision ()
+    {
+        if (ball.hits (paddle))
+        {
+            ball.reverseX ();
+            ball.reverseY ();
+        }
     }
 
     public void render (Graphics g)
