@@ -46,6 +46,8 @@ public class Entity
     public double getY1 () { return y1; }
     public double getX2 () { return x2; }
     public double getY2 () { return y2; }
+    public double getWidth () { return x2 - x1; }
+    public double getHeight () { return y2 - y1; }
     public boolean isVisible () { return visible; }
     public void setVisible (boolean value) { visible = value; }
 }

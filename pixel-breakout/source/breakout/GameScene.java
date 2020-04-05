@@ -25,6 +25,7 @@ public class GameScene extends Scene
     private final Paddle paddle;
     private final Ball ball;
     private final Brick[] bricks;
+    private final BrickManager brickManager;
 
     public GameScene (Assets a, int width, int height)
     {
@@ -59,6 +60,8 @@ public class GameScene extends Scene
                 i += 1;
             }
         }
+        hud.bricksRemaining = bricks.length;
+        brickManager = new BrickManager (bricks);
     }
 
     public void update (SceneManager mgr, long elapsedMillis)
@@ -86,9 +89,19 @@ public class GameScene extends Scene
         ball.update (elapsedMillis);
         if (paddle.hits (ball))
         {
+            double bw = ball.getWidth ();
+            double dif = ball.getX1 () - paddle.getX1 () + bw;
+            double tw = bw + paddle.getWidth ();
+            if (dif < tw * 0.3)
+            {
+                ball.modifyDeltaX (-0.125);
+            }
+            else if (dif > tw * 0.6)
+            {
+                ball.modifyDeltaX (0.125);
+            }
             ball.bounce (false, true);
         }
-        // TODO: detect ball-brick collision
         for (Brick brick : bricks)
         {
             if (!brick.isHit () && ball.hits (brick))
@@ -96,6 +109,7 @@ public class GameScene extends Scene
                 brick.setHit (true);
                 brick.setVisible (false);
                 ball.bounce (false, true);
+                hud.bricksRemaining = bricks.length - brickManager.countHit ();
                 break;
             }
         }

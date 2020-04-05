@@ -32,6 +32,11 @@ public class Ball extends Entity
         this.origY2 = y2;
     }
 
+    public void modifyDeltaX (double amount)
+    {
+        deltaX = clamp (deltaX + amount, MIN_DELTA_X, MAX_DELTA_X);
+    }
+
     public void bounce (boolean horizontal, boolean vertical)
     {
         if (horizontal)
