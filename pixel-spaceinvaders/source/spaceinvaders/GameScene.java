@@ -18,6 +18,7 @@ public class GameScene extends Scene
     private List<Brick> bricks;
     private List<Bullet> playerBullets;
     private List<Bullet> deadBullets;
+    private List<Invader> invaders;
 
     public GameScene ()
     {
@@ -26,6 +27,26 @@ public class GameScene extends Scene
         bricks = createBuildings ();
         playerBullets = new ArrayList<> ();
         deadBullets = new ArrayList<> ();
+        invaders = createInvaders ();
+    }
+
+    private List<Invader> createInvaders ()
+    {
+        List<Invader> list = new ArrayList<> ();
+        for (int a = 0; a < INVADER_ROWS; a++)
+        {
+            double y1 = INVADER_SPACER + (INVADER_HEIGHT * a) + (INVADER_SPACER * a);
+            double y2 = y1 + INVADER_HEIGHT;
+
+            for (int b = 0; b < INVADER_COLS; b++)
+            {
+                double x1 = INVADER_SPACER + (INVADER_WIDTH * b) + (INVADER_SPACER * b);
+                double x2 = x1 + INVADER_WIDTH;
+
+                list.add (new Invader (x1, y1, x2, y2, INVADER_COLORS[a]));
+            }
+        }
+        return list;
     }
 
     private List<Brick> createBuildings ()
@@ -140,6 +161,7 @@ public class GameScene extends Scene
         g.fillRect (0, 0, WIDTH, HEIGHT);
 
         ground.draw (g);
+
         for (Brick b : bricks)
         {
             if (b.isVisible ())
@@ -147,11 +169,23 @@ public class GameScene extends Scene
                 b.draw (g);
             }
         }
+
         player.draw (g);
+
+        for (Invader i : invaders)
+        {
+            if (i.isVisible ())
+            {
+                i.draw (g);
+            }
+        }
 
         for (Bullet b : playerBullets)
         {
-            b.draw (g);
+            if (b.isVisible ())
+            {
+                b.draw (g);
+            }
         }
     }
 

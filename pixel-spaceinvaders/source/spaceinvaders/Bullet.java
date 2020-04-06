@@ -2,7 +2,7 @@ package spaceinvaders;
 
 import java.awt.Graphics;
 import static pixel.Utility.debug;
-import static spaceinvaders.Main.BULLET_COLOR;
+import static spaceinvaders.Main.BULLET_COLOR1;
 import static spaceinvaders.Main.BULLET_DOWN_SPEED;
 import static spaceinvaders.Main.BULLET_HEIGHT;
 import static spaceinvaders.Main.BULLET_UP_SPEED;
@@ -32,6 +32,16 @@ public class Bullet extends Entity
         return new Bullet (x1, y1, x2, y2, true);
     }
 
+    public static Bullet createFor (Invader i)
+    {
+        double x1 = i.getX1 () + ((i.getWidth () - BULLET_WIDTH) / 2.0);
+        double x2 = x1 + BULLET_WIDTH;
+        double y1 = i.getY1 () + ((i.getHeight () - BULLET_HEIGHT) / 2.0);
+        double y2 = y1 + BULLET_HEIGHT;
+
+        return new Bullet (x1, y1, x2, y2, false);
+    }
+
     public void update (long elapsed)
     {
         if (up)
@@ -53,7 +63,7 @@ public class Bullet extends Entity
         int x = (int)Math.round (x1);
         int y = (int)Math.round (y1);
 
-        g.setColor (BULLET_COLOR);
+        g.setColor (BULLET_COLOR1);
         g.fillRect (x, y, w, h);
     }
 }

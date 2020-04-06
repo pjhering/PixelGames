@@ -18,7 +18,19 @@ public class Main
     public static final Color PLAYER_DRAW  = new Color (255, 255, 255);
     public static final Color BRICK_COLOR  = new Color (192, 0, 0);
     public static final Color MORTAR_COLOR = new Color (64, 64, 64);
-    public static final Color BULLET_COLOR = new Color (255, 255, 128);
+    public static final Color BULLET_COLOR1 = new Color (255, 255, 255);
+    public static final Color BULLET_COLOR2 = new Color (255, 0, 0);
+    public static final Color[][] INVADER_COLORS = new Color[][] {{
+            new Color (0, 0, 100), new Color (0, 0, 120), new Color (0, 0, 140), new Color (0, 0, 160),
+            new Color (0, 0, 180), new Color (0, 0, 200), new Color (0, 0, 220), new Color (0, 0, 240)
+        }, {new Color (0, 100, 0), new Color (0, 120, 0), new Color (0, 140, 0), new Color (0, 160, 0),
+            new Color (0, 180, 0), new Color (0, 200, 0), new Color (0, 220, 0), new Color (0, 240, 0)
+        }, {new Color (100, 0, 0), new Color (120, 0, 0), new Color (140, 0, 0), new Color (160, 0, 0),
+            new Color (180, 0, 0), new Color (200, 0, 0), new Color (220, 0, 0), new Color (240, 0, 0)
+        }, {new Color (100, 0, 100), new Color (120, 0, 120), new Color (140, 0, 140), new Color (160, 0, 160),
+            new Color (180, 0, 180), new Color (200, 0, 200), new Color (220, 0, 220), new Color (240, 0, 240)
+        }, {new Color (0, 100, 100), new Color (0, 120, 120), new Color (0, 140, 140), new Color (0, 160, 160),
+            new Color (0, 180, 180), new Color (0, 200, 200), new Color (0, 220, 220), new Color (0, 240, 240)}};
 
     public static final int GROUND_HEIGHT = 80;
 
@@ -41,6 +53,13 @@ public class Main
     public static final double BULLET_DOWN_SPEED = 1.0;
     public static final int BULLET_WIDTH    = 4;
     public static final int BULLET_HEIGHT   = 4;
+
+    public static final int INVADER_ROWS = 5;
+    public static final int INVADER_COLS = 10;
+    public static final double INVADER_WIDTH  = 36;
+    public static final double INVADER_HEIGHT = 36;
+    public static final double INVADER_SPACER = 16;
+    public static final double INVADER_BOTTOM = 240;
 
     public static void main (String[] args) throws Exception
     {
