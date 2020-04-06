@@ -32,19 +32,13 @@ public final class Utility
         return value;
     }
 
-    public static final boolean DEBUG =
-        (System.getProperty ("DEBUG") != null
-        && System.getProperty ("DEBUG").equals ("on"));
-
     public static void debug (Object ... objs)
     {
-        if (DEBUG)
+        for (Object o : objs)
         {
-            for (Object o : objs)
-            {
-                System.out.print (">>");
-                System.out.println (o);
-            }
+            System.out.print (">>");
+            System.out.println (o);
+            System.out.flush ();
         }
     }
 }
