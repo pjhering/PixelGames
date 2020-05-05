@@ -1,7 +1,8 @@
-package pixel.ces;
+package pixel.ecs;
 
 public interface Entity
 {
-    public int id ();
     public <C extends Component> C get (Class<C> c);
+
+    public <C extends Component> void set (C c);
 }
