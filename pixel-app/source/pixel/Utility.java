@@ -9,6 +9,11 @@ public final class Utility
         // not used; static methods only
     }
 
+    public static URL url (String path)
+    {
+        return Utility.class.getResource (path);
+    }
+
     public static double random (double min, double max)
     {
         return min + (Math.random () * (max - min));
