@@ -11,7 +11,7 @@ public class Utility
         return point_point_collision (a.getX (), a.getY (). b.getX (), b.getY ());
     }
 
-    public static boolean point_point_collision (double x1, double y1, double x2, double y2)
+    public static boolean collision_point_point (double x1, double y1, double x2, double y2)
     {
         return x1 > x2 - BUFFER
             && x1 < x2 + BUFFER
@@ -31,7 +31,7 @@ public class Utility
         return point_line_collision (px, py, x1, y1, x2, y2);
     }
 
-    public static boolean point_line_collision (double px, double py, double x1, double y1, double x2, double y2)
+    public static boolean collision_point_line (double px, double py, double x1, double y1, double x2, double y2)
     {
         float d1 = Point.distance (px, py, x1, y1);
         float d2 = Point.distance (px, py, x2, y2);
