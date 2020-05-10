@@ -99,4 +99,24 @@ public class Utility
 
         return d <= r;
     }
+
+    public static boolean collision (Circle a, Circle b)
+    {
+        double ax = a.getCenter ().getX ();
+        double ay = a.getCenter ().getY ();
+        double ar = a.getRadius ();
+        
+        double bx = b.getCenter ().getX ();
+        double by = b.getCenter ().getY ();
+        double br = b.getRadius ();
+
+        return collision_circle_circle (ax, ay, ar, bx, by, br);
+    }
+
+    public static boolean collision_circle_circle (double ax, double ay, double ar, double bx, double by, double br)
+    {
+        double d = Point.distance (ax, ay, bx, by);
+
+        return d <= ar + br;
+    }
 }
