@@ -13,7 +13,7 @@ public class Circle
 
     public static double area (Circle c)
     {
-        return Math.PI * (radius * radius);
+        return Math.PI * (c.radius * c.radius);
     }
 
     public double area ()

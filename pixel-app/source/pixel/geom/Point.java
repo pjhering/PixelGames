@@ -8,15 +8,15 @@ public class Point
     public Point (double x, double y)
     {
         this.x = x;
-        thix.y = y;
+        this.y = y;
     }
 
-    public static distance (Point p1, Point p2)
+    public static double distance (Point p1, Point p2)
     {
         return distance (p1.x, p1.y, p2.x, p2.y);
     }
 
-    public static distance (double x1, double y1, double x2, double y2)
+    public static double distance (double x1, double y1, double x2, double y2)
     {
         double dx = x1 - x2;
         double dy = y1 - y2;
