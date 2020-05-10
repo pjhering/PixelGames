@@ -1,5 +1,9 @@
 package pixel;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+import java.net.URL;
 import java.util.Map;
 
 public final class Utility
@@ -14,6 +18,11 @@ public final class Utility
         return Utility.class.getResource (path);
     }
 
+    public static boolean isRange (double value, double min, double max)
+    {
+        return value >= min (min, max) && value <= max (min, max);
+    }
+
     public static double random (double min, double max)
     {
         return min + (Math.random () * (max - min));
@@ -21,29 +30,31 @@ public final class Utility
 
     public static double clamp (double value, double lower, double upper)
     {
-        if (value < lower) return lower;
+        if (value < min(lower, upper)) return min(lower, upper);
 
-        if (value > upper) return upper;
+        if (value > max(lower, upper)) return max(lower, upper);
 
         return value;
     }
 
     public static int clamp (int value, int lower, int upper)
     {
-        if (value < lower) return lower;
+        if (value < min(lower, upper)) return min(lower, upper);
 
-        if (value > upper) return upper;
+        if (value > max(lower, upper)) return max(lower, upper);
 
         return value;
     }
 
     public static void debug (Object ... objs)
     {
+        System.out.print ("debug> ");
         for (Object o : objs)
         {
-            System.out.print (">>");
-            System.out.println (o);
-            System.out.flush ();
+            System.out.print (o);
+            System.out.print (' ');
         }
+        System.out.println ();
+        System.out.flush ();
     }
 }
