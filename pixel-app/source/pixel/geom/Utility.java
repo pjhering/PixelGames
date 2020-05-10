@@ -81,4 +81,22 @@ public class Utility
 
         return Optional.empty ();
     }
+
+    public static boolean collision (Point p, Circle c)
+    {
+        double px = p.getX ();
+        double py = p.getY ();
+        double cx = c.getCenter ().getX ();
+        double cy = c.getCenter ().getY ();
+        double r = c.getRadius ();
+
+        return collision_point_circle (ps, py, cx, cy, r);
+    }
+
+    public static boolean collision_point_circle (double px, double py, double cx, double cy, double r)
+    {
+        double d = Point.distance (px, py, cx, cy);
+
+        return d <= r;
+    }
 }
