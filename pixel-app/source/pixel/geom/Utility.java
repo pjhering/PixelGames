@@ -10,6 +10,66 @@ public class Utility
 
     private Utility () {/*NOT USED*/}
 
+    public static double findAdjacentFromHypotenuseAndTheta (double h, double t)
+    {
+        return Math.cos (t) * h;
+    }
+
+    public static double findAdjacentFromHypotenuseAndOpposite (double h, double o)
+    {
+        return Math.sqrt ((h * h) - (o * o));
+    }
+
+    public static double findAdjacentFromOppositeAndTheta (double o, double t)
+    {
+        return o / Math.tan (t);
+    }
+
+    public static double findOpposteFromAdjacentAndTheta (double a, double t)
+    {
+        return Math.tan (t) * a;
+    }
+
+    public static double findOpposteFromHypotenuseAndTheta (double h, double t)
+    {
+        return Math.sin (t) * h;
+    }
+
+    public static double findOpposteFromAdjacentAndHypotenuse (double a, double h)
+    {
+        return Math.sqrt ((h * h) - (a * a));
+    }
+
+    public static double findHypotenuseFromAdjacentAndTheta (double a, double t)
+    {
+        return a / Math.cos (t);
+    }
+
+    public static double findHypotenuseFromOppositeAndTheta (double o, double t)
+    {
+        return o / Math.sin (t);
+    }
+
+    public static double findHypotenuseFromAdjacentAndOpposite (double a, double o)
+    {
+        return Math.sqrt ((a * a) + (o * o));
+    }
+
+    public static double findThetaFromAdjacentAndHypotenuse (double a, double h)
+    {
+        return Math.acos (a / h);
+    }
+
+    public static double findThetaFromOppositeAndHypotenuse (double o, double h)
+    {
+        return Math.asin (o / h);
+    }
+
+    public static double findThetaFromAdjacentAndOpposite (double a, double o)
+    {
+        return Math.atan (o / a);
+    }
+
     public static boolean collision (Point a, Point b)
     {
         return collision_point_point (a.getX (), a.getY (), b.getX (), b.getY ());
