@@ -1,10 +1,28 @@
 package pixel;
 
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import java.net.URL;
+import javax.imageio.ImageIO;
 
 public class SpriteSheet
 {
     private final BufferedImage image;
+
+    public SpriteSheet (String path) throws Exception
+    {
+        this (SpriteSheet.class.getResource (path));
+    }
+
+    public SpriteSheet (URL url) throws Exception
+    {
+        this (url.openStream ());
+    }
+
+    public SpriteSheet (InputStream stream) throws Exception
+    {
+        this (ImageIO.read (stream));
+    }
 
     public SpriteSheet (BufferedImage image)
     {
