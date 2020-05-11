@@ -4,6 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// point-point x
+// point-line x
+// point-circle x
+// point-rectangle
+// line-line x
+// line-circle x
+// line-rectangle
+// circle-circle x
+// circle-rectangle
+// rectangle-rectangle
 public class Utility
 {
     private static final double BUFFER = 0.01;
@@ -149,5 +159,123 @@ public class Utility
     private static double sgn (double value)
     {
         return (value < 0) ? -1 : 1;
+    }
+
+    public static boolean collision (Point p, Rectangle r)
+    {
+        double px = p.getX ();
+        double py = p.getY ();
+        double rx = r.getTopLeft ().getX ();
+        double ry = r.getTopLeft ().getY ();
+        double rw = r.getWidth ();
+        double rh = r.getHeight ();
+
+        return collision_point_rectangle (px, py, rx, ry, rw, rh);
+    }
+
+    public static boolean collision_point_rectangle (double px, double py, double rx, double ry, double rw, double rh)
+    {
+        return px >= rx
+            && px <= rx + rw
+            && py >= ry
+            && py <= ry + rh;
+    }
+
+    public static Optional<List<Point>> collision (Line l, Rectangle r)
+    {
+        double x1 = l.getA ().getX ();
+        double y1 = l.getA ().getY ();
+        double x2 = l.getB ().getX ();
+        double y2 = l.getB ().getY ();
+        double rx = r.getTopLeft ().getX ();
+        double ry = r.getTopLeft ().getY ();
+        double rw = r.getWidth ();
+        double rh = r.getHeight ();
+
+        return collision_line_rectangle (x1, y1, x2, y2, rx, ry, rw, rh);
+    }
+
+    public static Optional<List<Point>> collision_line_rectangle (double x1, double y1, double x2, double y2, double rx, double ry, double rw, double rh)
+    {
+        List<Point> list = new ArrayList<> ();
+        Optional<Point> left = collision_line_line (x1, y1, x2, y2, rx, ry, rx, ry + rh);
+        Optional<Point> right = collision_line_line (x1, y1, x2, y2, rx + rw, ry, rx + rw,ry + rh);
+        Optional<Point> top = collision_line_line (x1, y1, x2, y2, rx, ry, rx + rw, ry);
+        Optional<Point> bottom = collision_line_line (x1, y1, x2, y2, rx, ry + rh, rx + rw,ry + rh);
+
+        if (left.isPresent ()) list.add (left.get ());
+        if (right.isPresent ()) list.add (right.get ());
+        if (top.isPresent ()) list.add (top.get ());
+        if (bottom.isPresent ()) list.add (bottom.get ());
+
+        if (list.isEmpty ())
+        {
+            if (collision_point_rectangle (x1, y1, rx, ry, rw, rh) &&
+                collision_point_rectangle (x2, y2, rx, ry, rw, rh))
+            {
+                return Optional.of (list);
+            }
+            else
+            {
+                return Optional.empty ();
+            }
+        }
+
+        return Optional.of (list);
+    }
+
+    public static boolean collision (Circle c, Rectangle r)
+    {
+        double cx = c.getCenter ().getX ();
+        double cy = c.getCenter ().getY ();
+        double radius = c.getRadius ();
+        double rx = r.getTopLeft ().getX ();
+        double ry = r.getTopLeft ().getY ();
+        double rw = r.getWidth ();
+        double rh = r.getHeight ();
+
+        return collision_circle_rectangle (cx, cy, radius, rx, ry, rw, rh);
+    }
+
+    public static boolean collision_circle_rectangle (double cx, double cy, double radius, double rx, double ry, double rw, double rh)
+    {
+        double testX = cx;
+        double testY = cy;
+
+        if (cx < rx)
+            testX = rx;
+        else if (cx > rx + rw)
+            testX = rx + rw;
+
+        if (cy < ry)
+            testY = ry;
+        else if (cy > ry + rh)
+            testY = ry + rh;
+
+        double distance = Point.distance (cx, cy, testX, testY);
+
+        return distance <= radius;
+    }
+
+    public static boolean collision (Rectangle r1, Rectangle r2)
+    {
+        double x1 = r1.getTopLeft ().getX ();
+        double y1 = r1.getTopLeft ().getY ();
+        double w1 = r1.getWidth ();
+        double h1 = r1.getHeight ();
+        double x2 = r2.getTopLeft ().getX ();
+        double y2 = r2.getTopLeft ().getY ();
+        double w2 = r2.getWidth ();
+        double h2 = r2.getHeight ();
+
+        return collision_rectangle_rectangle (x1, y1, w1, h1, x2, y2, w2, h2);
+    }
+
+    public static boolean collision_rectangle_rectangle (double x1, double y1, double w1, double h1, double x2, double y2, double w2, double h2)
+    {
+        return x1 + w1 >= x2
+            && x1 <= x2 + w2
+            && y1 + h1 >= y2
+            && y1 <= y2 + h2;
     }
 }
