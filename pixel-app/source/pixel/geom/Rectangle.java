@@ -6,6 +6,11 @@ public class Rectangle
     private double width;
     private double height;
 
+    public Rectangle (double x, double y, double width, double height)
+    {
+        this (new Point (x, y), width, height);
+    }
+
     public Rectangle (Point topLeft, double width, double height)
     {
         this.topLeft = topLeft;

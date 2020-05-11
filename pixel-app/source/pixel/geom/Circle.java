@@ -5,6 +5,11 @@ public class Circle
     private Point center;
     private double radius;
 
+    public Circle (double x, double y, double radius)
+    {
+        this (new Point (x, y), radius);
+    }
+
     public Circle (Point center, double radius)
     {
         this.center = center;
