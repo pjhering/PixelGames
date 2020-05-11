@@ -4,16 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-// point-point x
-// point-line x
-// point-circle x
-// point-rectangle
-// line-line x
-// line-circle x
-// line-rectangle
-// circle-circle x
-// circle-rectangle
-// rectangle-rectangle
 public class Utility
 {
     private static final double BUFFER = 0.01;
