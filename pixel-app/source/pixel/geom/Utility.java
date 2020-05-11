@@ -135,20 +135,13 @@ public class Utility
 
     public static boolean collision_line_circle (double x1, double y1, double x2, double y2, double cx, double cy, double r)
     {
-          double dx = x1 - x2;
-          double dy = y1 - y2;
           double len = Point.distance (x1, y1, x2, y2);
           double dot = (((cx - x1) * (x2 - x1)) + ((cy - y1) * (y2 - y1)) ) / (len * len);
-          double closestX = x1 + (dot * (x2-x1));
-          double closestY = y1 + (dot * (y2-y1));
+          double closestX = x1 + (dot * (x2 - x1));
+          double closestY = y1 + (dot * (y2 - y1));
           double distance = Point.distance (closestX, closestY, cx, cy);
 
           return distance <= r;
-    }
-
-    private static double sgn (double value)
-    {
-        return (value < 0) ? -1 : 1;
     }
 
     public static boolean collision (Point p, Rectangle r)
