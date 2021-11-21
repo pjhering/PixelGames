@@ -14,32 +14,8 @@
     <property name="app-build" value="${basedir}/pixel-app/build"/>
     <property name="app-jar" value="${dist}/pixel-app.jar"/>
 
-    <property name="breakout-library" value="${basedir}/pixel-run2right/library"/>
-    <property name="breakout-source" value="${basedir}/pixel-breakout/source"/>
-    <property name="breakout-resource" value="${basedir}/pixel-breakout/resource"/>
-    <property name="breakout-build" value="${basedir}/pixel-breakout/build"/>
-    <property name="breakout-main" value="breakout.Main"/>
-    <property name="breakout-jar" value="${dist}/breakout.jar"/>
-
-    <property name="spaceinvaders-library" value="${basedir}/pixel-spaceinvaders/library"/>
-    <property name="spaceinvaders-source" value="${basedir}/pixel-spaceinvaders/source"/>
-    <property name="spaceinvaders-resource" value="${basedir}/pixel-spaceinvaders/resource"/>
-    <property name="spaceinvaders-build" value="${basedir}/pixel-spaceinvaders/build"/>
-    <property name="spaceinvaders-main" value="spaceinvaders.Main"/>
-    <property name="spaceinvaders-jar" value="${dist}/spaceinvaders.jar"/>
-
-    <property name="snake-library" value="${basedir}/pixel-snake/library"/>
-    <property name="snake-source" value="${basedir}/pixel-snake/source"/>
-    <property name="snake-resource" value="${basedir}/pixel-snake/resource"/>
-    <property name="snake-build" value="${basedir}/pixel-snake/build"/>
-    <property name="snake-main" value="snake.Main"/>
-    <property name="snake-jar" value="${dist}/snake.jar"/>
-
     <target name="clean">
         <delete dir="${app-build}"/>
-	<delete dir="${breakout-build}"/>
-        <delete dir="${spaceinvaders-build}"/>
-        <delete dir="${snake-build}"/>
         <delete dir="${dist}"/>
     </target>
 
@@ -64,84 +40,8 @@
         </jar>
     </target>
 
-    <target name="breakout-prepare">
-        <mkdir dir="${breakout-build}"/>
-    </target>
-
-    <target name="breakout-compile" depends="breakout-prepare">
-        <javac srcdir="${breakout-source}" destdir="${breakout-build}" includeantruntime="false" debug="${DEBUG}">
-            <classpath>
-                <pathelement path="${app-build}"/>
-            </classpath>
-        </javac>
-    </target>
-
-    <target name="breakout-package" depends="breakout-compile">
-        <jar destfile="${breakout-jar}">
-            <fileset dir="${app-build}"/>
-            <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
-            <fileset dir="${breakout-build}"/>
-            <fileset dir="${breakout-resource}"/>
-            <manifest>
-                <attribute name="Main-Class" value="${breakout-main}"/>
-            </manifest>
-        </jar>
-    </target>
-
-    <target name="snake-prepare">
-        <mkdir dir="${snake-build}"/>
-    </target>
-
-    <target name="snake-compile" depends="snake-prepare">
-        <javac srcdir="${snake-source}" destdir="${snake-build}" includeantruntime="false"  debug="${DEBUG}">
-            <classpath>
-                <pathelement path="${app-build}"/>
-            </classpath>
-        </javac>
-    </target>
-
-    <target name="snake-package" depends="snake-compile">
-        <jar destfile="${snake-jar}">
-            <fileset dir="${app-build}"/>
-            <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
-            <fileset dir="${snake-build}"/>
-            <fileset dir="${snake-resource}"/>
-            <manifest>
-                <attribute name="Main-Class" value="${snake-main}"/>
-            </manifest>
-        </jar>
-    </target>
-
-    <target name="spaceinvaders-prepare">
-        <mkdir dir="${spaceinvaders-build}"/>
-    </target>
-
-    <target name="spaceinvaders-compile" depends="spaceinvaders-prepare">
-        <javac srcdir="${spaceinvaders-source}" destdir="${spaceinvaders-build}" includeantruntime="false"  debug="${DEBUG}">
-            <classpath>
-                <pathelement path="${app-build}"/>
-            </classpath>
-        </javac>
-    </target>
-
-    <target name="spaceinvaders-package" depends="spaceinvaders-compile">
-        <jar destfile="${spaceinvaders-jar}">
-            <fileset dir="${app-build}"/>
-            <zipgroupfileset dir="${app-library}" includes="**/*.jar"/>
-            <fileset dir="${spaceinvaders-build}"/>
-            <fileset dir="${spaceinvaders-resource}"/>
-            <manifest>
-                <attribute name="Main-Class" value="${spaceinvaders-main}"/>
-            </manifest>
-        </jar>
-    </target>
-
     <target name="all"
-		depends="app-package, breakout-package, spaceinvaders-package, snake-package">
+		depends="app-package">
     </target>
-
-	<target name="install" depends="all">
-		<copy file="${snake-jar}" todir="${user.home}/lib"/>
-	</target>
 
 </project>
